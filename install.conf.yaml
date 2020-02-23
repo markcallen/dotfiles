@@ -1,5 +1,7 @@
 - clean: ['~']
 
-- link:
+- link: {}
+
+- shell: []
 
 
