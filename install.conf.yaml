@@ -6,6 +6,8 @@
 
 - link:
     ~/.gitconfig:
+    ~/.tmux:
+    ~/.tmux.conf:
 
 - shell: []
 
