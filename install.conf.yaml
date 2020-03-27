@@ -8,6 +8,8 @@
     ~/.gitconfig:
     ~/.tmux:
     ~/.tmux.conf:
+    ~/.bash_profile:
+    ~/.config: 
 
 - shell: []
 
