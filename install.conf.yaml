@@ -8,8 +8,10 @@
     ~/.gitconfig:
     ~/.tmux:
     ~/.tmux.conf:
+    ~/.tmux.conf.linux:
+    ~/.tmux.conf.osx:
     ~/.bash_profile:
-    ~/.config: 
+    ~/.config/powerline: config/powerline
 
 - shell: []
 
