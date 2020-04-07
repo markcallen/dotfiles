@@ -11,8 +11,11 @@
     ~/.tmux.conf.linux:
     ~/.tmux.conf.osx:
     ~/.bash_profile:
-    ~/.config/powerline: config/powerline
+    ~/.config/powerline: 
+      create: true
+      path: config/powerline
 
-- shell: []
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
 
 
