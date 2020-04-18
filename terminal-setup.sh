@@ -27,13 +27,13 @@ fi
 
 echo "Installing necessary packages for development"
 if [ $os == "Linux" ]; then
-  sudo apt install -y tmux vim git powerline python3 python3-pip
+  sudo apt install -y tmux vim git powerline python3 python3-pip jq
 elif [ $os == "Darwin" ]; then
   if [ ! -x brew ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux 
+  brew install python3 tmux jq
 fi
 
 pip3 install powerline-status
