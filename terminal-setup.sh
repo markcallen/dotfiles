@@ -39,6 +39,9 @@ fi
 pip3 install powerline-status
 pip3 install --user powerline-gitstatus
 
+git clone https://github.com/powerline/fonts.git --depth=1
+pushd fonts && ./install.sh && popd
+rm -rf fonts
 
 # Get dotfiles
 if [ ! -d ~/.dotfiles ]; then
