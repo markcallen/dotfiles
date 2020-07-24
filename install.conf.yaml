@@ -21,6 +21,9 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [vim +'PlugInstall --sync' +qa]
+  - [vim +'PlugInstall --sync' +qall]
+  - [vim +GoInstallBinaries +qall]
+  - [vim +PlugUpdate +qall]
+
 
 
