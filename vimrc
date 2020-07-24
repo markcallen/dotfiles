@@ -49,7 +49,7 @@ syntax on
 
 set background=dark
 
-colorscheme badwolf
+silent! colorscheme badwolf
 
 " Tab Handling
 set tabstop=4
