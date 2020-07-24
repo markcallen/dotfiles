@@ -33,7 +33,7 @@ elif [ $os == "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux jq
+  brew install python3 tmux jq vim
 fi
 
 pip3 install powerline-status

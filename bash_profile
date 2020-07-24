@@ -11,11 +11,12 @@ case "${osName}" in
     ;;
   Darwin*) 
     os=Mac
-    source /usr/local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
+    source /usr/local/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh
     ;;
   *)       exit 1;;
 esac
 
+[ -h '/usr/local/bin/vim' ] && alias vim='/usr/local/bin/vim'
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
