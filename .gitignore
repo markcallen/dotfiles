@@ -3,3 +3,4 @@ tmux/plugins/tmux-resurrect/
 tmux/plugins/tmux-sensible/
 tmux/resurrect/
 vim/plugged
+vim/.netrwhist
