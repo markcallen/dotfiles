@@ -27,7 +27,7 @@ fi
 
 echo "Installing necessary packages for development"
 if [ $os == "Linux" ]; then
-  sudo apt install -y tmux vim git powerline python3 python3-pip jq
+  sudo apt install -y tmux vim git powerline python3 python3-pip jq silversearcher-ag
 elif [ $os == "Darwin" ]; then
   if [ ! -x brew ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
