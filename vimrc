@@ -43,6 +43,9 @@ Plug 'ap/vim-css-color'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
+" Eslint
+Plug 'dense-analysis/ale'
+
 call plug#end()
 
 syntax on
@@ -146,3 +149,13 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
+"----------------------------------------------
+" Plugin: dense-analysis/ale
+"----------------------------------------------
+"
+let g:ale_fixers = {
+ \ 'javascript': ['eslint']
+ \ }
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_fix_on_save = 1
