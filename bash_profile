@@ -26,3 +26,12 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+export GIT_EDITOR=vim
+if [ -f "/usr/local/go/bin/go" ]; then
+    export PATH=$PATH:/usr/local/go/bin
+    if [ ! -d ~/go ]; then
+        mkdir ~/go
+    fi
+    export GOPATH=~/go
+fi
+
