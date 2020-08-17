@@ -59,7 +59,6 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 
-
 " Show line numbers
 set number
 
@@ -82,10 +81,17 @@ set lazyredraw
 set showmatch
 
 " search as characters are entered
-set incsearch     	 
+set incsearch
 " highlight matches`
-set hlsearch       	 
+set hlsearch
 
+"----------------------------------------------
+" IDE
+"----------------------------------------------
+" Format file
+map <F7> gg=G<C-o><C-o>
+" Open filetree
+map <F2> :NERDTreeToggle<cr>
 
 " from https://hackernoon.com/my-neovim-setup-for-go-7f7b6e805876
 "----------------------------------------------
@@ -111,13 +117,39 @@ let g:go_auto_sameids = 1
 " Import dependencies
 let g:go_fmt_command = "goimports"
 
-" Linting with airline
-" Error and warning signs.
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
+" Write file when :GoBuild is run
+set autowrite
+
+" from https://realpython.com/vim-and-python-a-match-made-in-heaven/
+"----------------------------------------------
+" Language: Python
+"----------------------------------------------
+"Configure indentation
+au BufNewFile, BufRead *.py
+                        \ set tabstop=4
+                        \ set softtabstop=4
+                        \ set shiftwidth=4
+                        \ set textwidth=79
+                        \ set expandtab
+                        \ set autoindent
+                        \ set fileformat=unix
+                        \ set filetype=python
+
+autocmd FileType python colorscheme gruvbox
+
+"----------------------------------------------
+" Language: javascript
+"----------------------------------------------
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
+
+"----------------------------------------------
+" Plugin: dense-analysis/ale
+"----------------------------------------------
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
-
 
 "----------------------------------------------
 " Plugin: sebdah/vim-delve
@@ -133,7 +165,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Close VI is NERDTree is the last thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <F2> :NERDTreeToggle<cr>
 
 "----------------------------------------------
 " Plugin: junegunn/fzf
@@ -154,8 +185,11 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " Plugin: dense-analysis/ale
 "----------------------------------------------
 "
+let g:ale_php_phpcs_executable='./vendor/bin/phpcs'
+let g:ale_php_php_cs_fixer_executable='./vendor/bin/phpcbf'
 let g:ale_fixers = {
- \ 'javascript': ['eslint']
+ \ 'javascript': ['eslint'],
+ \ 'php': ['php_cs_fixer']
  \ }
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
