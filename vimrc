@@ -93,6 +93,14 @@ map <F7> gg=G<C-o><C-o>
 " Open filetree
 map <F2> :NERDTreeToggle<cr>
 
+" Powerline
+let g:airline_powerline_fonts = 1
+set t_Co=256
+
+" completion
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
 " from https://hackernoon.com/my-neovim-setup-for-go-7f7b6e805876
 "----------------------------------------------
 " Language: Golang
@@ -116,6 +124,20 @@ let g:go_auto_sameids = 1
 
 " Import dependencies
 let g:go_fmt_command = "goimports"
+
+" Debug window
+let g:go_debug_windows = {
+          \ 'vars':       'leftabove 30vnew',
+          \ 'stack':      'leftabove 20new',
+          \ 'out':        'botright 5new',
+\ }
+
+" GoBuild navigation
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " Write file when :GoBuild is run
 set autowrite
@@ -194,3 +216,18 @@ let g:ale_fixers = {
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 let g:ale_fix_on_save = 1
+
+"----------------------------------------------
+" Plugin: vim-airline/vim-airline
+"----------------------------------------------
+let g:airline_theme='badwolf'
+let g:airline#extensions#tabline#enabled = 1
+
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" note leader is mapped to \
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
