@@ -27,7 +27,7 @@ fi
 
 echo "Installing necessary packages for development"
 if [ $os == "Linux" ]; then
-  sudo sudo add-apt-repository ppa:jonathonf/vim
+  sudo add-apt-repository ppa:jonathonf/vim
   sudo apt-get update
   sudo apt install -y tmux vim git powerline python3 python3-pip jq vim silversearcher-ag
 elif [ $os == "Darwin" ]; then
