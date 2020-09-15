@@ -3,3 +3,7 @@
 	email = mark@markcallen.com
 [url "git@bitbucket.org:"]
 	insteadOf = https://bitbucket.org/
+[push]
+    default = simple
+[color]
+    ui = auto

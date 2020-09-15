@@ -59,7 +59,6 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 
-
 " Show line numbers
 set number
 
@@ -82,10 +81,25 @@ set lazyredraw
 set showmatch
 
 " search as characters are entered
-set incsearch     	 
+set incsearch
 " highlight matches`
-set hlsearch       	 
+set hlsearch
 
+"----------------------------------------------
+" IDE
+"----------------------------------------------
+" Format file
+map <F7> gg=G<C-o><C-o>
+" Open filetree
+map <F2> :NERDTreeToggle<cr>
+
+" Powerline
+let g:airline_powerline_fonts = 1
+set t_Co=256
+
+" completion
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 
 " from https://hackernoon.com/my-neovim-setup-for-go-7f7b6e805876
 "----------------------------------------------
@@ -111,13 +125,53 @@ let g:go_auto_sameids = 1
 " Import dependencies
 let g:go_fmt_command = "goimports"
 
-" Linting with airline
-" Error and warning signs.
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
+" Debug window
+let g:go_debug_windows = {
+          \ 'vars':       'leftabove 30vnew',
+          \ 'stack':      'leftabove 20new',
+          \ 'out':        'botright 5new',
+\ }
+
+" GoBuild navigation
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+" Write file when :GoBuild is run
+set autowrite
+
+" from https://realpython.com/vim-and-python-a-match-made-in-heaven/
+"----------------------------------------------
+" Language: Python
+"----------------------------------------------
+"Configure indentation
+au BufNewFile, BufRead *.py
+                        \ set tabstop=4
+                        \ set softtabstop=4
+                        \ set shiftwidth=4
+                        \ set textwidth=79
+                        \ set expandtab
+                        \ set autoindent
+                        \ set fileformat=unix
+                        \ set filetype=python
+
+autocmd FileType python colorscheme gruvbox
+
+"----------------------------------------------
+" Language: javascript
+"----------------------------------------------
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
+
+"----------------------------------------------
+" Plugin: dense-analysis/ale
+"----------------------------------------------
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
-
 
 "----------------------------------------------
 " Plugin: sebdah/vim-delve
@@ -153,9 +207,27 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " Plugin: dense-analysis/ale
 "----------------------------------------------
 "
+let g:ale_php_phpcs_executable='./vendor/bin/phpcs'
+let g:ale_php_php_cs_fixer_executable='./vendor/bin/phpcbf'
 let g:ale_fixers = {
- \ 'javascript': ['eslint']
+ \ 'javascript': ['eslint'],
+ \ 'php': ['php_cs_fixer']
  \ }
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 let g:ale_fix_on_save = 1
+
+"----------------------------------------------
+" Plugin: vim-airline/vim-airline
+"----------------------------------------------
+let g:airline_theme='badwolf'
+let g:airline#extensions#tabline#enabled = 1
+
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" note leader is mapped to \
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
