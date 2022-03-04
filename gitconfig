@@ -7,3 +7,7 @@
     default = simple
 [color]
     ui = auto
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
