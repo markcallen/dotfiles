@@ -46,9 +46,23 @@ Plug 'junegunn/fzf.vim'
 " Eslint
 Plug 'dense-analysis/ale'
 
+" Go through VIM registries https://github.com/bfredl/nvim-miniyank
+"Plug 'bfredl/nvim-miniyank' commented out due to bugs in OSX
+
+" PHP Syntax https://github.com/StanAngeloff/php.vim
+Plug 'StanAngeloff/php.vim'
+
+" Terraform https://github.com/hashivim/vim-terraform
+Plug 'hashivim/vim-terraform'
+
+" indentLine https://github.com/Yggdroot/indentLine
+Plug 'Yggdroot/indentLine'
+
 call plug#end()
 
 syntax on
+
+set noswapfile
 
 set background=dark
 
@@ -100,6 +114,9 @@ set t_Co=256
 " completion
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+
+" indentLine character
+let g:indentLine_char = '⦙'
 
 " from https://hackernoon.com/my-neovim-setup-for-go-7f7b6e805876
 "----------------------------------------------
@@ -168,6 +185,16 @@ autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
 
 "----------------------------------------------
+" Language: php
+"----------------------------------------------
+autocmd FileType php setlocal ts=2 sts=2 sw=2
+
+"----------------------------------------------
+" Language: yaml
+"----------------------------------------------
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+"----------------------------------------------
 " Plugin: dense-analysis/ale
 "----------------------------------------------
 " Enable integration with airline.
@@ -187,6 +214,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Close VI is NERDTree is the last thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" close current buffer
+nnoremap <leader>c :bp\|bd #<CR>
 
 "----------------------------------------------
 " Plugin: junegunn/fzf
@@ -210,8 +239,11 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 let g:ale_php_phpcs_executable='./vendor/bin/phpcs'
 let g:ale_php_php_cs_fixer_executable='./vendor/bin/phpcbf'
 let g:ale_fixers = {
- \ 'javascript': ['eslint'],
- \ 'php': ['php_cs_fixer']
+ \ 'javascript': ['prettier', 'eslint'],
+ \ 'typescript': ['prettier', 'eslint'],
+ \ 'typescriptreact': ['prettier', 'eslint'],
+ \ 'php': ['php_cs_fixer'],
+ \ '*': ['prettier']
  \ }
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
@@ -231,3 +263,20 @@ set hidden
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
+
+"----------------------------------------------
+" Plugin: bfredl/nvim-miniyank
+"----------------------------------------------
+"map p <Plug>(miniyank-autoput)
+"map P <Plug>(miniyank-autoPut)
+"map <leader>p <Plug>(miniyank-startput)
+"map <leader>P <Plug>(miniyank-startPut)
+"map <leader>n <Plug>(miniyank-cycle)
+"map <leader>N <Plug>(miniyank-cycleback)
+
+
+"----------------------------------------------
+" Plugin: hashivim/vim-terraform
+"----------------------------------------------
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
