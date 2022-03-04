@@ -1,29 +1,22 @@
+---
 - defaults:
     link:
-        relink: true
+      relink: true
 
 - clean: ['~']
 
 - link:
     ~/.gitconfig:
-    ~/.tmux:
-    ~/.tmux.conf:
-    ~/.tmux.conf.linux:
-    ~/.tmux.conf.osx:
-    ~/.bash_profile:
-    ~/.config/powerline: 
-      create: true
-      path: config/powerline
     ~/.vim/autoload:
       create: true
-      path: vim/autoload 
+      path: vim/autoload
     ~/.vimrc:
+    ~/.config/yamllint:
+      create: true
+      path: config/yamllint
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - [vim +'PlugInstall --sync' +qall]
-  - [vim +GoInstallBinaries +qall]
-  - [vim +PlugUpdate +qall]
-
-
-
+    - [git submodule update --init --recursive, Installing submodules]
+    - [vim +'PlugInstall --sync' +qall]
+    - [vim +GoInstallBinaries +qall]
+    - [vim +PlugUpdate +qall]
