@@ -29,15 +29,20 @@ echo "Installing necessary packages for development"
 if [ $os == "Linux" ]; then
   sudo add-apt-repository ppa:jonathonf/vim
   sudo apt-get update
-  sudo apt install -y tmux vim git powerline python3 python3-pip jq vim silversearcher-ag
+  sudo apt install -y tmux vim git powerline python3 python3-pip jq vim silversearcher-ag fzf
 elif [ $os == "Darwin" ]; then
   if [ ! -x brew ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux jq vim yamllint
+  brew install python3 tmux jq vim yamllint fzf
 fi
 
+echo "Install nvm"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+npm install -g fixjson
+
+echo "Install powerline"
 pip3 install powerline-status
 pip3 install --user powerline-gitstatus
 
