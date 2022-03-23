@@ -58,6 +58,10 @@ Plug 'hashivim/vim-terraform'
 " indentLine https://github.com/Yggdroot/indentLine
 Plug 'Yggdroot/indentLine'
 
+" jsx typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
 call plug#end()
 
 syntax on
@@ -98,6 +102,10 @@ set showmatch
 set incsearch
 " highlight matches`
 set hlsearch
+
+" open terminal below
+"set splitbelow
+"set termsize=10x0
 
 "----------------------------------------------
 " IDE
@@ -257,6 +265,8 @@ let g:ale_fixers = {
  \ 'javascript': ['prettier', 'eslint'],
  \ 'typescript': ['prettier', 'eslint'],
  \ 'typescriptreact': ['prettier', 'eslint'],
+ \ 'python': ['autopep8', 'yapf'], 
+ \ 'json': ['fixjson'], 
  \ 'php': ['php_cs_fixer'],
  \ '*': ['prettier']
  \ }
@@ -295,3 +305,34 @@ nmap <leader>2 <Plug>AirlineSelectTab2
 "----------------------------------------------
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
+
+"----------------------------------------------
+" Plugin: peitalin/vim-jsx-typescript
+"----------------------------------------------
+
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+" dark red
+hi tsxTagName guifg=#E06C75
+hi tsxComponentName guifg=#E06C75
+hi tsxCloseComponentName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxCloseTagName guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+hi ReactState guifg=#C176A7
+hi ReactProps guifg=#D19A66
+hi ApolloGraphQL guifg=#CB886B
+hi Events ctermfg=204 guifg=#56B6C2
+hi ReduxKeywords ctermfg=204 guifg=#C678DD
+hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
+hi WebBrowser ctermfg=204 guifg=#56B6C2
+hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
