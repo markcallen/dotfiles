@@ -7,6 +7,10 @@
 
 - link:
     ~/.gitconfig:
+    ~/.tmux:
+    ~/.tmux.conf:
+    ~/.tmux.conf.linux:
+    ~/.tmux.conf.osx:
     ~/.vim/autoload:
       create: true
       path: vim/autoload
