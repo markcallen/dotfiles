@@ -1,2 +1,2 @@
 # Tmux conf just for osx
-source /usr/local/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf
+source /opt/homebrew/lib/python3.9/site-packages/powerline/bindings/tmux/powerline.conf
