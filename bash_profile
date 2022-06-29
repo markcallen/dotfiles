@@ -35,3 +35,10 @@ if [ -f "/usr/local/go/bin/go" ]; then
     export GOPATH=~/go
 fi
 
+# Cargo
+if [ -d "$HOME/.cargo" ]; then
+    source "$HOME/.cargo/env"
+fi
+
+alias tf=terraform
+
