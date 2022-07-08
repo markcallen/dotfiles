@@ -203,6 +203,11 @@ autocmd FileType php setlocal ts=2 sts=2 sw=2
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 "----------------------------------------------
+" Language: json
+"----------------------------------------------
+autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
+
+"----------------------------------------------
 " Plugin: dense-analysis/ale
 "----------------------------------------------
 " Enable integration with airline.
