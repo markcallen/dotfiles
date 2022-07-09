@@ -7,9 +7,11 @@
 
 - link:
     ~/.bash_profile:
+      force: true
     ~/.bash_profile.linux:
     ~/.bash_profile.osx:
     ~/.bashrc:
+      force: true
     ~/.gitconfig:
     ~/.tmux:
     ~/.tmux.conf:
