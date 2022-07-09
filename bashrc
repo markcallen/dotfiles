@@ -152,3 +152,7 @@ export PATH=$PATH:$GOPATH/bin
 alias ggraph='git log --oneline --graph'
 alias tf=terraform
 alias k=kubectl
+
+fixssh() {
+  eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
+}
