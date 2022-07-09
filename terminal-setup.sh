@@ -46,9 +46,17 @@ echo "Install powerline"
 pip3 install powerline-status
 pip3 install --user powerline-gitstatus
 
-git clone https://github.com/powerline/fonts.git --depth=1
-pushd fonts && ./install.sh && popd
-rm -rf fonts
+if [ $os == "Linux" ]; then
+   wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+   wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+   mv PowerlineSymbols.otf /usr/share/fonts/
+   fc-cache -vf /usr/share/fonts/
+   mv 10-powerline-symbols.conf /etc/fonts/conf.d/
+elif [ $os == "Darwin" ]; then
+  git clone https://github.com/powerline/fonts.git --depth=1
+  pushd fonts && ./install.sh && popd
+  rm -rf fonts
+fi
 
 # Get dotfiles
 if [ ! -d ~/.dotfiles ]; then
