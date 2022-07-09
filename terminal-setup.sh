@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# OS
 osName="$(uname -s)"
 case "${osName}" in
   Linux*)  os=Linux;;
@@ -35,7 +34,7 @@ elif [ $os == "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux jq vim yamllint fzf bash-completion
+  brew install python3 tmux jq vim yamllint fzf bash-completion jenv
   brew install --cask iterm2
 fi
 

@@ -7,6 +7,8 @@
 
 - link:
     ~/.bash_profile:
+    ~/.bash_profile.linux:
+    ~/.bash_profile.osx:
     ~/.bashrc:
     ~/.gitconfig:
     ~/.tmux:
@@ -20,6 +22,7 @@
     ~/.config/yamllint:
       create: true
       path: config/yamllint
+    ~/.condarc:
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
