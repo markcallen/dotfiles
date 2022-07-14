@@ -67,7 +67,7 @@ else
   pushd .dotfiles && git pull && popd
 fi
 
-pushd .dotfiles && ./install && popd
+pushd .dotfiles && ./install --plugin-dir dotbot-ifplatform && popd
 
 # Go back to where we started from
 popd
