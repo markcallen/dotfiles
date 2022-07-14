@@ -30,8 +30,10 @@
     ~/.condarc:
 
 - ifmacos:
+  - shell:
+    - echo Apple
   - link:
-    ~/.terminfo:
+      ~/.terminfo:
 
 - shell:
   - [vim +'PlugInstall --sync' +qall]
