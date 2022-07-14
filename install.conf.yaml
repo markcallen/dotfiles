@@ -5,6 +5,9 @@
 
 - clean: ['~']
 
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+
 - link:
     ~/.bash_profile:
       force: true
@@ -26,8 +29,11 @@
       path: config/yamllint
     ~/.condarc:
 
+- ifmacos:
+  - link:
+    ~/.terminfo:
+
 - shell:
-    - [git submodule update --init --recursive, Installing submodules]
-    - [vim +'PlugInstall --sync' +qall]
-    - [vim +GoInstallBinaries +qall]
-    - [vim +PlugUpdate +qall]
+  - [vim +'PlugInstall --sync' +qall]
+  - [vim +GoInstallBinaries +qall]
+  - [vim +PlugUpdate +qall]
