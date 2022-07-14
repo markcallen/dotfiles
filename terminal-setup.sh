@@ -36,6 +36,8 @@ elif [ $os == "Darwin" ]; then
   fi
   brew install python3 tmux jq vim yamllint fzf bash-completion jenv
   brew install --cask iterm2
+  brew tap homebrew/cask-fonts
+  brew install --cask font-fira-code
 fi
 
 echo "Install nvm"
