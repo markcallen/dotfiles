@@ -1,6 +1,61 @@
+"  __  __  ___   _
+" |  \/  |/ __| /_\
+" | |\/| | (__ / _ \
+" |_|  |_|\___/_/ \_\
 "
-"Based on https://dougblack.io/words/a-good-vimrc.html
+" @markcallen
 "
+
+syntax on
+
+set noswapfile
+set hidden
+
+set background=dark
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set relativenumber
+set number
+set spell
+
+set list
+set listchars=trail:·,tab:»·
+
+set scrolloff=4
+set sidescrolloff=4
+
+set showcmd
+set cursorline
+
+set wildmenu
+set lazyredraw
+set showmatch
+set incsearch
+set hlsearch
+
+set autowrite
+
+" open terminal below
+"set splitbelow
+"set termsize=10x0
+"
+
+let $RC="$HOME/.vimrc"
+
+map <leader>ve :e $RC<cr>
+map <leader>vs :so $RC<cr>
+
+nnoremap <leader>c :bp\|bd #<CR>
+
+" Format file
+map <F7> gg=G<C-o><C-o>
+" Open filetree
+map <leader>t :NERDTreeToggle<cr>
+
+
 
 " vim-plug - https://github.com/junegunn/vim-plug
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -28,7 +83,7 @@ if !has('nvim')
 endif
 
 " Nerdtree
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " js formatting https://github.com/pangloss/vim-javascript
@@ -62,58 +117,25 @@ Plug 'Yggdroot/indentLine'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
+" Conquer of Completion (coc) https://github.com/neoclide/coc.nvim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
-syntax on
+source ~/.vim/config/airline.vim
 
-set noswapfile
-
-set background=dark
+" still working below here
+"
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-prettier', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css']
 
 silent! colorscheme badwolf
-
-" Tab Handling
-set tabstop=4
-set softtabstop=4
-set expandtab
-
-" Show line numbers
-set number
-
-" Show command in bottom bar
-set showcmd
-
-" Highlight the current line
-set cursorline
 
 " load filetype-specific indent files
 filetype indent plugin on
 
-" visual autocomplete for command menu
-set wildmenu
-
-" redraw only when we need to.
-set lazyredraw
-
-" highlight matching [{()}]
-set showmatch
-
-" search as characters are entered
-set incsearch
-" highlight matches`
-set hlsearch
-
-" open terminal below
-"set splitbelow
-"set termsize=10x0
-
 "----------------------------------------------
 " IDE
 "----------------------------------------------
-" Format file
-map <F7> gg=G<C-o><C-o>
-" Open filetree
-map <F2> :NERDTreeToggle<cr>
 
 " Powerline
 let g:airline_powerline_fonts = 1
@@ -164,9 +186,6 @@ nnoremap <leader>a :cclose<CR>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
-" Write file when :GoBuild is run
-set autowrite
-
 " from https://realpython.com/vim-and-python-a-match-made-in-heaven/
 "----------------------------------------------
 " Language: Python
@@ -213,21 +232,6 @@ autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
 
-"----------------------------------------------                             
-" Plugin: vim-airline/vim-airline                                           
-"----------------------------------------------                             
-let g:airline_theme='badwolf'                                               
-let g:airline#extensions#tabline#enabled = 1                                
-                                                                            
-" This allows buffers to be hidden if you've modified a buffer.             
-" This is almost a must if you wish to use buffers in this way.             
-set hidden                                                                  
-                                                                            
-" note leader is mapped to \                                                
-let g:airline#extensions#tabline#buffer_idx_mode = 1                        
-nmap <leader>1 <Plug>AirlineSelectTab1                                      
-nmap <leader>2 <Plug>AirlineSelectTab2                                      
-
 "----------------------------------------------
 " Plugin: sebdah/vim-delve
 "----------------------------------------------
@@ -238,12 +242,10 @@ nmap <leader>2 <Plug>AirlineSelectTab2
 " Plugin: scrooloose/nerdtree
 "----------------------------------------------
 " Open with NERDTree if no files specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Close VI is NERDTree is the last thing open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" close current buffer
-nnoremap <leader>c :bp\|bd #<CR>
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "----------------------------------------------
 " Plugin: junegunn/fzf
