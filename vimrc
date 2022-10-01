@@ -38,6 +38,9 @@ set hlsearch
 
 set autowrite
 
+set updatetime=300
+set signcolumn=
+
 " open terminal below
 "set splitbelow
 "set termsize=10x0
@@ -56,11 +59,32 @@ map <F7> gg=G<C-o><C-o>
 map <leader>t :NERDTreeToggle<cr>
 
 
+"----------------------------------------------
+" Plugins
+"----------------------------------------------
 
 " vim-plug - https://github.com/junegunn/vim-plug
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.vim/plugged')
 " Don't forget to run :PlugInstall
+
+" vim-airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Nerdtree
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Colours
+Plug 'sjl/badwolf'
+Plug 'morhetz/gruvbox'
+
+"vim-fugitive https://github.com/tpope/vim-fugitive
+Plug 'tpope/vim-fugitive'
+
+" Conquer of Completion (coc) https://github.com/neoclide/coc.nvim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " vim-go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -68,23 +92,11 @@ Plug 'ctrlpvim/ctrlp.vim'      	" CtrlP is installed to support tag finding in v
 " Requires delve https://github.com/go-delve/delve/tree/master/Documentation/installation
 Plug 'sebdah/vim-delve'
 
-" vim-airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" Colours
-Plug 'sjl/badwolf'
-Plug 'morhetz/gruvbox'
-
 " Vim only plugins
 if !has('nvim')
    Plug 'Shougo/vimproc.vim', {'do' : 'make'}  " Needed to make sebdah/vim-delve work on Vim
    Plug 'Shougo/vimshell.vim'              	" Needed to make sebdah/vim-delve work on Vim
 endif
-
-" Nerdtree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " js formatting https://github.com/pangloss/vim-javascript
 Plug 'pangloss/vim-javascript'
@@ -117,16 +129,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
-" Conquer of Completion (coc) https://github.com/neoclide/coc.nvim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 call plug#end()
 
 source ~/.vim/config/airline.vim
+source ~/.vim/config/coc.vim
 
 " still working below here
-"
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-prettier', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css']
 
 silent! colorscheme badwolf
 
@@ -136,10 +144,6 @@ filetype indent plugin on
 "----------------------------------------------
 " IDE
 "----------------------------------------------
-
-" Powerline
-let g:airline_powerline_fonts = 1
-set t_Co=256
 
 " completion
 filetype plugin on
