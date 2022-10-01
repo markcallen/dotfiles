@@ -15,19 +15,23 @@
     ~/.bash_profile.osx:
     ~/.bashrc:
       force: true
-    ~/.gitconfig:
-    ~/.tmux:
-    ~/.tmux.conf:
-    ~/.tmux.conf.linux:
-    ~/.tmux.conf.osx:
-    ~/.vim/autoload:
-      create: true
-      path: vim/autoload
-    ~/.vimrc:
     ~/.config/yamllint:
       create: true
       path: config/yamllint
     ~/.condarc:
+    ~/.gitconfig:
+    ~/.nvm/default-packages:
+    ~/.tmux:
+    ~/.tmux.conf:
+    ~/.tmux.conf.linux:
+    ~/.tmux.conf.osx:
+    ~/.vimrc:
+    ~/.vim/autoload:
+      create: true
+      path: vim/autoload
+    ~/.vim/config:
+      create: true
+      path: vim/config
 
 - ifmacos:
   - shell:

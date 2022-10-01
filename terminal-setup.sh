@@ -42,7 +42,7 @@ fi
 
 echo "Install nvm"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-npm install -g fixjson
+nvm alias default 16
 
 echo "Install powerline"
 pip3 install powerline-status
