@@ -148,8 +148,12 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
+# vi mode
+set -o vi
+
 # aliases
 alias ggraph='git log --oneline --graph'
+alias g=git
 alias tf=terraform
 alias k=kubectl
 
