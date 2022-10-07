@@ -160,3 +160,5 @@ alias k=kubectl
 fixssh() {
   eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
+
+alias onport='sudo lsof -i -P | grep LISTEN | grep $1'
