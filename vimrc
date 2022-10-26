@@ -8,17 +8,23 @@
 
 syntax on
 
+set completeopt=menuone,noinsert,noselect
+set splitbelow
+set splitright
+
 set noswapfile
 set hidden
 
 set background=dark
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
 set relativenumber
 set number
+
 set spell
 
 set list
@@ -30,21 +36,29 @@ set sidescrolloff=4
 set showcmd
 set cursorline
 
+set diffopt+=vertical
+
 set wildmenu
 set lazyredraw
 set showmatch
+set ignorecase
+set smartcase
 set incsearch
 set hlsearch
 
 set autowrite
 
 set updatetime=300
-set signcolumn=
+set signcolumn=yes
 
-" open terminal below
-"set splitbelow
-"set termsize=10x0
-"
+filetype indent plugin on
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+let g:netrw_banner=0
+let g:markdown_fenced_languages = ['javascript', 'js=javascript', 'json=javascript']
 
 let $RC="$HOME/.vimrc"
 
@@ -132,14 +146,13 @@ Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 source ~/.vim/config/airline.vim
+source ~/.vim/config/ale.vim
 source ~/.vim/config/coc.vim
+source ~/.vim/config/terraform.vim
 
 " still working below here
 
 silent! colorscheme badwolf
-
-" load filetype-specific indent files
-filetype indent plugin on
 
 "----------------------------------------------
 " IDE
@@ -231,12 +244,6 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 
 "----------------------------------------------
-" Plugin: dense-analysis/ale
-"----------------------------------------------
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
-
-"----------------------------------------------
 " Plugin: sebdah/vim-delve
 "----------------------------------------------
 " Set the Delve backend.
@@ -266,39 +273,6 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-"----------------------------------------------
-" Plugin: dense-analysis/ale
-"----------------------------------------------
-"
-let g:ale_php_phpcs_executable='./vendor/bin/phpcs'
-let g:ale_php_php_cs_fixer_executable='./vendor/bin/phpcbf'
-let g:ale_fixers = {
- \ 'javascript': ['prettier', 'eslint'],
- \ 'typescript': ['prettier', 'eslint'],
- \ 'typescriptreact': ['prettier', 'eslint'],
- \ 'python': ['autopep8', 'yapf'], 
- \ 'json': ['fixjson'], 
- \ 'php': ['php_cs_fixer'],
- \ '*': ['prettier']
- \ }
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-let g:ale_fix_on_save = 1
-
-"----------------------------------------------
-" Plugin: vim-airline/vim-airline
-"----------------------------------------------
-let g:airline_theme='badwolf'
-let g:airline#extensions#tabline#enabled = 1
-
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
-set hidden
-
-" note leader is mapped to \
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
 
 "----------------------------------------------
 " Plugin: bfredl/nvim-miniyank
@@ -310,12 +284,6 @@ nmap <leader>2 <Plug>AirlineSelectTab2
 "map <leader>n <Plug>(miniyank-cycle)
 "map <leader>N <Plug>(miniyank-cycleback)
 
-
-"----------------------------------------------
-" Plugin: hashivim/vim-terraform
-"----------------------------------------------
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
 
 "----------------------------------------------
 " Plugin: peitalin/vim-jsx-typescript
