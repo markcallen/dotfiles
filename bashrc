@@ -152,9 +152,20 @@ export PATH=$PATH:$GOPATH/bin
 set -o vi
 
 # aliases
-alias ggraph='git log --oneline --graph'
+# git
 alias g=git
+alias ggraph='git log --oneline --graph'
+alias gversion='echo $(git describe --abbrev=0 --tags)-$(git log -1 --format=%h)'
+alias gs='git status'
+alias gd='git diff'
+
+# terraform
 alias tf=terraform
+
+# docker
+alias dc=docker-compose
+
+#k8s
 alias k=kubectl
 
 fixssh() {
