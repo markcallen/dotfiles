@@ -51,6 +51,8 @@ set autowrite
 set updatetime=300
 set signcolumn=yes
 
+set term=xterm-256color
+
 filetype indent plugin on
 
 if (has("termguicolors"))
@@ -102,7 +104,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " vim-go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'ctrlpvim/ctrlp.vim'      	" CtrlP is installed to support tag finding in vim-go
+Plug 'ctrlpvim/ctrlp.vim' " CtrlP is installed to support tag finding in vim-go
 " Requires delve https://github.com/go-delve/delve/tree/master/Documentation/installation
 Plug 'sebdah/vim-delve'
 
@@ -145,6 +147,7 @@ Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
+silent! colorscheme badwolf
 source ~/.vim/config/airline.vim
 source ~/.vim/config/ale.vim
 source ~/.vim/config/coc.vim
@@ -152,7 +155,6 @@ source ~/.vim/config/terraform.vim
 
 " still working below here
 
-silent! colorscheme badwolf
 
 "----------------------------------------------
 " IDE
