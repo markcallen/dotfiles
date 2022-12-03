@@ -59,6 +59,8 @@ unset __conda_setup
 # Fix issue with terraform not working correctly on M1
 export GODEBUG=asyncpreemptoff=1;
 
+ssh-add 2>/dev/null
+
 # source .bash_profile.local
 if [ -f $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
