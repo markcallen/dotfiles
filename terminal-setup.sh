@@ -26,9 +26,13 @@ fi
 
 echo "Installing necessary packages for development"
 if [ $os == "Linux" ]; then
-  sudo add-apt-repository ppa:jonathonf/vim
+  sudo add-apt-repository -y ppa:jonathonf/vim
   sudo apt-get update
-  sudo apt install -y tmux vim git powerline python3 python3-pip jq vim silversearcher-ag fzf
+  sudo apt-get install -y build-essential
+  sudo apt install -y tmux vim git bash-completion powerline python3 python3-pip jq vim silversearcher-ag fzf
+  if [ ! -x brew ]; then
+    curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | NONINTERACTIVE=1 bash
+  fi
 elif [ $os == "Darwin" ]; then
   if [ ! -x brew ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -75,5 +79,21 @@ pushd .dotfiles && ./install --plugin-dir dotbot-ifplatform && popd
 
 # Go back to where we started from
 popd
+
+# k8s
+
+if [ $os == "Linux" ]; then
+  brew install derailed/k9s/k9s
+elif [ $os == "Darwin" ]; then
+  brew install k9s
+fi
+
+brew install asdf
+asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
+asdf install kubectl 1.23.6
+asdf global kubectl 1.23.6
+
+brew install helm
+brew install kustomize
 
 exit 0;
