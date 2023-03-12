@@ -1,3 +1,5 @@
+export EDITOR=vim
+
 osName="$(uname -s)"
 case "${osName}" in
   Linux*)  
