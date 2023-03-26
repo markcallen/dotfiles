@@ -153,11 +153,16 @@ set -o vi
 
 # aliases
 # git
-alias g=git
-alias ggraph='git log --oneline --graph'
-alias gversion='echo $(git describe --abbrev=0 --tags)-$(git log -1 --format=%h)'
+alias g='git'
 alias gs='git status'
 alias gd='git diff'
+alias ga='git add'
+alias gp='git push'
+alias gpu='git pull'
+alias gm='git commit -m'
+alias gc='git checkout'
+alias ggraph='git log --oneline --graph'
+alias gversion='echo $(git describe --abbrev=0 --tags)-$(git log -1 --format=%h)'
 
 # terraform
 alias tf=terraform
