@@ -93,6 +93,10 @@ asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
 asdf install kubectl 1.23.6
 asdf global kubectl 1.23.6
 
+asdf plugin-add stern
+asdf install stern 1.24.0
+asdf global stern 1.24.0
+
 brew install helm
 brew install kustomize
 
