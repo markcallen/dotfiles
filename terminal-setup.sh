@@ -80,6 +80,12 @@ pushd .dotfiles && ./install --plugin-dir dotbot-ifplatform && popd
 # Go back to where we started from
 popd
 
+# terraform
+#
+
+brew install tfenv
+tfenv install 1.1.7
+
 # k8s
 
 if [ $os == "Linux" ]; then
