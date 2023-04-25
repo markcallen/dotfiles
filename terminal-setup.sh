@@ -33,6 +33,7 @@ if [ $os == "Linux" ]; then
   if [ ! -x brew ]; then
     curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | NONINTERACTIVE=1 bash
   fi
+  sudo apt install -y dnsutils iputils-ping
 elif [ $os == "Darwin" ]; then
   if [ ! -x brew ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
