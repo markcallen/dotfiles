@@ -33,6 +33,9 @@
       create: true
       path: vim/config
 
+- create:
+  - ~/.nvm
+
 - ifmacos:
   - shell:
     - echo Apple
