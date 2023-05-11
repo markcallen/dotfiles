@@ -116,17 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -d $HOME/.nvm ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 # rust
 if [ -d $HOME/.cargo ]; then
   source "$HOME/.cargo/env"
 fi
-
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [ -d $HOME/.rvm ]; then
@@ -154,6 +147,7 @@ set -o vi
 # aliases
 # git
 alias g='git'
+alias ggraph="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
