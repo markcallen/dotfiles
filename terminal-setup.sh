@@ -29,7 +29,7 @@ ssh-keyscan github.com ~/.ssh/known_hosts
 
 echo "Installing necessary packages for development"
 if [ $os == "Linux" ]; then
-  // see https://askubuntu.com/questions/1367139/apt-get-upgrade-auto-restart-services
+  # see https://askubuntu.com/questions/1367139/apt-get-upgrade-auto-restart-services
   if [ -f /etc/needrestart/needrestart.conf ]; then
     sudo sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
   fi
