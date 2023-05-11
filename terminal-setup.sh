@@ -22,6 +22,9 @@ if [ ! -f ~/.ssh/id_rsa ]; then
   ssh-keygen -t rsa -b 4096 -C $(whoami)@$(hostname) -f ~/.ssh/id_rsa -q -N ""
 fi
 
+# Add github.com key
+ssh-keyscan github.com ~/.ssh/known_hosts
+
 # Install
 
 echo "Installing necessary packages for development"
@@ -50,7 +53,7 @@ elif [ $os == "Darwin" ]; then
 fi
 
 echo "Install nvm"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+brew install nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -86,19 +89,19 @@ pushd .dotfiles && ./install --plugin-dir dotbot-ifplatform && popd
 popd
 
 # terraform
-#
-
+echo "Install tfenv"
 brew install tfenv
 tfenv install 1.1.7
 
 # k8s
-
+echo "Install k9s"
 if [ $os == "Linux" ]; then
   brew install derailed/k9s/k9s
 elif [ $os == "Darwin" ]; then
   brew install k9s
 fi
 
+echo "Install asdf for kubectl and stern"
 brew install asdf
 asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
 asdf install kubectl 1.23.6
@@ -108,7 +111,10 @@ asdf plugin-add stern
 asdf install stern 1.24.0
 asdf global stern 1.24.0
 
+echo "Install helm" 
 brew install helm
+
+echo "Install kustomize"
 brew install kustomize
 
 exit 0;
