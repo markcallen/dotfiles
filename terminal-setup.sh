@@ -37,6 +37,7 @@ if [ $os == "Linux" ]; then
   if [ ! -x brew ]; then
     curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | NONINTERACTIVE=1 bash
   fi
+  sudo apt install -y dnsutils iputils-ping
 elif [ $os == "Darwin" ]; then
   if [ ! -x brew ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -83,6 +84,12 @@ pushd .dotfiles && ./install --plugin-dir dotbot-ifplatform && popd
 
 # Go back to where we started from
 popd
+
+# terraform
+#
+
+brew install tfenv
+tfenv install 1.1.7
 
 # k8s
 
