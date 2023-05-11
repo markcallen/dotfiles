@@ -71,9 +71,6 @@ nnoremap <leader>c :bp\|bd #<CR>
 
 " Format file
 map <F7> gg=G<C-o><C-o>
-" Open filetree
-map <leader>t :NERDTreeToggle<cr>
-
 
 "----------------------------------------------
 " Plugins
@@ -145,6 +142,9 @@ Plug 'Yggdroot/indentLine'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
+" vim-gitgutter https://github.com/airblade/vim-gitgutter
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 
 silent! colorscheme badwolf
@@ -152,6 +152,8 @@ source ~/.vim/config/airline.vim
 source ~/.vim/config/ale.vim
 source ~/.vim/config/coc.vim
 source ~/.vim/config/terraform.vim
+source ~/.vim/config/gitgutter.vim
+source ~/.vim/config/nerdtree.vim
 
 " still working below here
 
@@ -250,15 +252,6 @@ autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 "----------------------------------------------
 " Set the Delve backend.
 "let g:delve_backend = "native"
-
-"----------------------------------------------
-" Plugin: scrooloose/nerdtree
-"----------------------------------------------
-" Open with NERDTree if no files specified
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Close VI is NERDTree is the last thing open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "----------------------------------------------
 " Plugin: junegunn/fzf
