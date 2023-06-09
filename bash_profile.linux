@@ -1,5 +1,5 @@
 
-#brew
+# brew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 if type brew &>/dev/null; then
   HOMEBREW_PREFIX="$(brew --prefix)"
@@ -12,10 +12,16 @@ if type brew &>/dev/null; then
   fi
 fi
 
+# nvm
 if [ -d $HOME/.nvm ]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  #
+fi
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
 fi
 
 # Powerline
