@@ -98,6 +98,8 @@ elif [ $os == "Darwin" ]; then
 fi
 
 # Get dotfiles
+#
+pip3 install distro
 if [ ! -d ~/.dotfiles ]; then
   git clone https://github.com/markcallen/dotfiles ~/.dotfiles
 else
