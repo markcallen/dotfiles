@@ -14,7 +14,9 @@ let g:ale_fixers = {
  \ 'php': ['php_cs_fixer'],
  \ '*': ['prettier']
  \ }
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+let g:ale_sign_error = "◉"
+let g:ale_sign_warning = "◉"
+highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#1c1b1a
+highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#1c1b1a
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
