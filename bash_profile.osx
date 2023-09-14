@@ -13,6 +13,18 @@ if type brew &>/dev/null; then
   fi
 fi
 
+# nvm
+if [ -d $HOME/.nvm ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
 # The next line updates PATH for the Google Cloud SDK.
 [[ -r /usr/local/google-cloud-sdk/path.bash.inc ]] && source '/usr/local/google-cloud-sdk/path.bash.inc'
 
@@ -63,14 +75,6 @@ ssh-add 2>/dev/null
 if [ -f $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi
-
-# NVM
-if [ -d $HOME/.nvm ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 
 [ -r ~/.bashrc ] && . ~/.bashrc
 
