@@ -146,7 +146,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
 " vim-gitgutter https://github.com/airblade/vim-gitgutter
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 
 call plug#end()
 
