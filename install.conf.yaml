@@ -44,5 +44,6 @@
 
 - shell:
   - [vim +'PlugInstall --sync' +qall]
-  - [vim +GoInstallBinaries +qall]
-  - [vim +PlugUpdate +qall]
+  - [vim +'GoInstallBinaries' +qall]
+  - [vim +'PlugUpdate' +qall]
+  - [vim +'CocInstall coc-tsserver coc-json coc-html coc-css']
