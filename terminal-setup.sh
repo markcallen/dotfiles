@@ -72,6 +72,9 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 16
 nvm alias default 16
 
+echo "Install go"
+brew install go
+
 echo "Install pyenv"
 brew install openssl readline sqlite3 xz zlib
 brew install pyenv
