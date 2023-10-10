@@ -137,10 +137,9 @@ asdf plugin-add stern
 asdf install stern 1.24.0
 asdf global stern 1.24.0
 
-echo "Install helm" 
-brew install helm
-
-echo "Install kustomize"
-brew install kustomize
+for PACKAGE in helm kustomize kubectx
+do
+  brew install $PACKAGE
+done
 
 exit 0;
