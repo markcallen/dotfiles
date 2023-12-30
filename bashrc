@@ -156,7 +156,7 @@ alias gpu='git pull'
 alias gm='git commit -m'
 alias gc='git checkout'
 alias ggraph='git log --oneline --graph'
-alias gversion='echo $(git describe --abbrev=0 --tags)-$(git log -1 --format=%h)'
+alias gversion='echo $(git describe --abbrev=0 --tags)-$(git log -1 --format=%h --abbrev=8)'
 alias gchange='git log --follow -p -- '
 
 # terraform
