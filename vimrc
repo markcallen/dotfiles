@@ -196,12 +196,23 @@ let g:go_auto_sameids = 1
 " Import dependencies
 let g:go_fmt_command = "goimports"
 
+let g:go_highlight_debug = 1
+
 " Debug window
 let g:go_debug_windows = {
-          \ 'vars':       'leftabove 30vnew',
-          \ 'stack':      'leftabove 20new',
-          \ 'out':        'botright 5new',
-\ }
+    \ 'vars':       'rightbelow 50vnew',
+    \ 'stack':      'rightbelow 10new',
+    \ 'out':        'botright 5new',
+    \ }
+
+" Debugger key mappings
+let g:go_debug_mappings = {
+      \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
+      \ '(go-debug-stop)': {'key': 'q'},
+      \ '(go-debug-next)': {'key': 'n', 'arguments': '<nowait>'},
+      \ '(go-debug-step)': {'key': 's'},
+      \ '(go-debug-print)': {'key': 'p'},
+  \}
 
 " GoBuild navigation
 map <C-n> :cnext<CR>
