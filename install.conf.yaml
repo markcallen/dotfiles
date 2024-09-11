@@ -32,9 +32,11 @@
     ~/.vim/config:
       create: true
       path: vim/config
+    ~/.terraformrc:
 
 - create:
   - ~/.nvm
+  - ~/.terraform.d/plugin-cache
 
 - ifmacos:
   - shell:
