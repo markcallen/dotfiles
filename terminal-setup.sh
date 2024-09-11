@@ -46,7 +46,7 @@ elif [ $os == "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux jq vim yamllint fzf bash-completion jenv
+  brew install python3 tmux jq vim yamllint fzf bash-completion@2 jenv
   brew install --cask iterm2
   brew tap homebrew/cask-fonts
   brew install --cask font-fira-code
@@ -137,7 +137,20 @@ asdf plugin-add stern
 asdf install stern 1.24.0
 asdf global stern 1.24.0
 
-for PACKAGE in helm kustomize kubectx
+asdf plugin-add helm https://github.com/Antiarchitect/asdf-helm.git
+asdf install helm 3.14.4
+asdf global helm 3.14.4
+
+asdf plugin-add nova
+asdf install nova latest
+asdf local nova latest
+
+asdf plugin-add pluto
+asdf list-all pluto
+asdf install pluto 5.19.0
+asdf local pluto 5.19.0
+
+for PACKAGE in kustomize kubectx
 do
   brew install $PACKAGE
 done
