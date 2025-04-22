@@ -54,7 +54,9 @@ set autowrite
 set updatetime=300
 set signcolumn=yes
 
-set term=xterm-256color
+if !has('nvim')
+  set term=xterm-256color
+endif
 
 filetype indent plugin on
 
@@ -135,9 +137,6 @@ Plug 'dense-analysis/ale'
 " PHP Syntax https://github.com/StanAngeloff/php.vim
 Plug 'StanAngeloff/php.vim'
 
-" Terraform https://github.com/hashivim/vim-terraform
-Plug 'hashivim/vim-terraform'
-
 " indentLine https://github.com/Yggdroot/indentLine
 Plug 'Yggdroot/indentLine'
 
@@ -154,7 +153,6 @@ silent! colorscheme badwolf
 source ~/.vim/config/airline.vim
 source ~/.vim/config/ale.vim
 source ~/.vim/config/coc.vim
-source ~/.vim/config/terraform.vim
 source ~/.vim/config/gitgutter.vim
 source ~/.vim/config/nerdtree.vim
 
