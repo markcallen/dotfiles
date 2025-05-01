@@ -1,2 +1,3 @@
 yarn
 fixjson
+strip-json-comments-cli
