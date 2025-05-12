@@ -18,6 +18,7 @@
   - ~/.config/asciinema
   - ~/.local
   - ~/.local/share
+  - ~/.git-template
 
 - link:
     ~/.bash_profile:
