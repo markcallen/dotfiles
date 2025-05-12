@@ -122,9 +122,9 @@ if [ -d $HOME/.cargo ]; then
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-if [ -d $HOME/.rvm ]; then
-  export PATH="$PATH:$HOME/.rvm/bin"
-fi
+#if [ -d $HOME/.rvm ]; then
+#  export PATH="$PATH:$HOME/.rvm/bin"
+#fi
 
 if [ -d $HOME/.yarn ]; then
   export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -168,8 +168,15 @@ alias dc=docker-compose
 #k8s
 alias k=kubectl
 
+#dns
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+
 fixssh() {
   eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
 
 alias onport='sudo lsof -i -P | grep LISTEN | grep $1'
+. "$HOME/.aftman/env"
+
+# Created by `pipx` on 2024-09-23 19:34:34
+export PATH="$PATH:/Users/mark/.local/bin"

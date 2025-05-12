@@ -46,7 +46,7 @@ elif [ $os == "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux jq vim yamllint fzf bash-completion@2 jenv
+  brew install python3 tmux jq vim yamllint fzf jenv ag
   brew install --cask iterm2
   brew tap homebrew/cask-fonts
   brew install --cask font-fira-code
@@ -113,6 +113,17 @@ pushd .dotfiles && ./install --plugin-dir dotbot-ifplatform && popd
 
 # Go back to where we started from
 popd
+
+# Setup cloud CLIs
+#
+ 
+if [ $os == "Darwin" ]; then
+  brew install --cask google-cloud-sdk
+
+  brew install awscli
+
+  brew tap civo/tools && brew install civo
+fi
 
 # terraform
 echo "Install tfenv"

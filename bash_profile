@@ -13,3 +13,15 @@ case "${osName}" in
     exit 1
     ;;
 esac
+
+. "$HOME/.aftman/env"
+
+# Created by `pipx` on 2024-09-23 19:34:34
+export PATH="$PATH:/Users/mark/.local/bin"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.bash 2>/dev/null || :

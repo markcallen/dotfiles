@@ -1,6 +1,7 @@
 [user]
 	name = Mark C Allen
 	email = mark@markcallen.com
+	signingkey = 0386B39E0669C735
 [url "git@bitbucket.org:"]
 	insteadOf = https://bitbucket.org/
 [push]

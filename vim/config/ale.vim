@@ -12,6 +12,7 @@ let g:ale_fixers = {
  \ 'python': ['autopep8', 'yapf'], 
  \ 'json': ['fixjson', 'prettier'], 
  \ 'php': ['php_cs_fixer'],
+ \ 'terraform': ['terraform'],
  \ '*': ['prettier']
  \ }
 let g:ale_sign_error = "◉"
