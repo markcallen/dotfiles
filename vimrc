@@ -128,7 +128,7 @@ Plug 'ap/vim-css-color'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-" Eslint
+" ALE
 Plug 'dense-analysis/ale'
 
 " Go through VIM registries https://github.com/bfredl/nvim-miniyank
