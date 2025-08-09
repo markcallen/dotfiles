@@ -22,8 +22,13 @@ if [ ! -f ~/.ssh/id_rsa ]; then
   ssh-keygen -t rsa -b 4096 -C $(whoami)@$(hostname) -f ~/.ssh/id_rsa -q -N ""
 fi
 
+if [ ! -f ~/.ssh/known_hosts ]; then
+  touch ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
+fi
+
 # Add github.com key
-ssh-keyscan github.com ~/.ssh/known_hosts
+ssh-keygen -R github.com -f ~/.ssh/known_hosts 2>/dev/null && \
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Install
 
@@ -33,44 +38,53 @@ if [ $os == "Linux" ]; then
   if [ -f /etc/needrestart/needrestart.conf ]; then
     sudo sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
   fi
-  sudo add-apt-repository -y ppa:jonathonf/vim
   sudo apt-get update
   sudo apt-get install -y build-essential
-  sudo apt install -y tmux vim git bash-completion powerline python3 python3-pip jq vim silversearcher-ag fzf
-  if [ ! -x brew ]; then
+  sudo apt install -y git bash-completion powerline silversearcher-ag fzf dnsutils iputils-ping
+  export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+  if command -v brew >/dev/null 2>&1; then
     curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | NONINTERACTIVE=1 bash
   fi
-  sudo apt install -y dnsutils iputils-ping
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 elif [ $os == "Darwin" ]; then
-  if [ ! -x brew ]; then
+  if command -v brew >/dev/null 2>&1; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
   fi
-  brew install python3 tmux jq vim yamllint fzf jenv ag
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+HOMEBREW_PREFIX="$(brew --prefix)"
+
+brew install python3 tmux jq vim yamllint fzf jenv ag
+
+if [ $os == "Darwin" ]; then
   brew install --cask iterm2
   brew tap homebrew/cask-fonts
   brew install --cask font-fira-code
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-if type brew &>/dev/null; then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-    done
-  fi
+if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+  source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+else
+  for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+  done
 fi
 
 echo "Install nvm"
 brew install nvm
+
+if [ ! -d ~/.nvm ]; then
+  mkdir ~/.nvm
+fi
+
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-nvm install 16
-nvm alias default 16
+[ -s "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && \. "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && \. "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+nvm install 20
+nvm alias default 20
 
 echo "Install go"
 brew install go
