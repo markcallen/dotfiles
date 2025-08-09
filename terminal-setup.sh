@@ -38,6 +38,7 @@ if [ $os == "Linux" ]; then
   if [ -f /etc/needrestart/needrestart.conf ]; then
     sudo sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
   fi
+  sudo add-apt-repository -y ppa:jonathonf/vim
   sudo apt-get update
   sudo apt-get install -y build-essential
   sudo apt install -y git bash-completion powerline silversearcher-ag fzf dnsutils iputils-ping
