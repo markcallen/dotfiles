@@ -74,6 +74,13 @@ if [ -f $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi
 
+alias flushdns="sudo killall -HUP mDNSResponder"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.bash 2>/dev/null || :
+
 [ -r ~/.bashrc ] && . ~/.bashrc
 
-alias flushdns="sudo killall -HUP mDNSResponder"
