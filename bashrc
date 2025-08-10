@@ -183,3 +183,5 @@ fi
 
 # Created by `pipx` on 2024-09-23 19:34:34
 export PATH="$PATH:/Users/mark/.local/bin"
+
+alias ask='function _ask() { ~/.local/bin/linux-help ask "$*"; }; _ask'

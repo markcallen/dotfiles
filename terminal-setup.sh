@@ -87,8 +87,18 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 20
 nvm alias default 20
 
+# Install the TypeScript / JavaScript language server for neovim
+npm install -g typescript typescript-language-server
+
+# Install the Python language server for neovim
+npm install -g pyright
+
+
 echo "Install go"
 brew install go
+
+# Install the golang server for use with neovim
+go install golang.org/x/tools/gopls@latest
 
 echo "Install pyenv"
 brew install openssl readline sqlite3 xz zlib
