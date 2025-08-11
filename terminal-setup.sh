@@ -61,8 +61,7 @@ brew install python3 uv pipx tmux jq vim yamllint fzf jenv ag
 
 if [ $os == "Darwin" ]; then
   brew install --cask iterm2
-  brew tap homebrew/cask-fonts
-  brew install --cask font-fira-code
+  brew install --cask font-fira-mono-nerd-font
 fi
 
 if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
