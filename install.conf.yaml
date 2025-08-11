@@ -51,11 +51,10 @@
       path: config/nvim
     ~/.yarnrc:
 
-
-
 - shell:
   - [vim +'PlugInstall --sync' +qall, Install PlugInstall for vim]
   - [vim +'GoInstallBinaries' +qall, Install Go for vim]
   - [vim +'PlugUpdate' +qall, PlugUpdate for vim]
   - [vim +'CocInstall coc-tsserver coc-json coc-html coc-css' +qall]
-  - [nvim +'PackerSync' +qall]
+  - [nvim +qall, Setup nvim]
+  - [nvim +'MasonInstallAll' +qall, Install LSP for nvim]
