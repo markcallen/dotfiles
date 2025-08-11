@@ -4,6 +4,7 @@ tmux/plugins/tmux-sensible/
 tmux/resurrect/
 vim/plugged
 vim/.netrwhist
+local/share/nvim/
 
 # yarn
 yarn-error.log
