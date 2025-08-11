@@ -1,35 +1,28 @@
--- lua/plugins/init.lua
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({ "git", "clone", "--depth", "1",
-    "https://github.com/wbthomason/packer.nvim", install_path })
-  vim.cmd("packadd packer.nvim")
-end
+return {
+  {
+    "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
+  },
 
-require("packer").startup(function(use)
-  use "wbthomason/packer.nvim"
+  -- These are some examples, uncomment them if you want to see them work!
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "configs.lspconfig"
+    end,
+  },
 
-  -- theme
-  use 'navarasu/onedark.nvim'
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
 
-  -- Core
-  use "neovim/nvim-lspconfig"
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/cmp-path"
-
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-  use { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }
-  use { 'nvim-tree/nvim-tree.lua', requires = {
-    'nvim-tree/nvim-web-devicons', -- optional
+ {
+  	"nvim-treesitter/nvim-treesitter",
+  	opts = {
+  		ensure_installed = {
+  		 "vim", "lua", "vimdoc",
+       "html", "css"
+  		},
+  	},
   },
 }
-end)
-
--- Treesitter config
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "python", "typescript", "tsx", "go", "lua", "json", "bash", "yaml", "markdown" },
-  highlight = { enable = true },
-})
