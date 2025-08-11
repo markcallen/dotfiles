@@ -144,6 +144,9 @@ export PATH=$PATH:$GOPATH/bin
 # vi mode
 set -o vi
 
+# Created by `pipx` on 2024-09-23 19:34:34
+export PATH="$PATH:/Users/mark/.local/bin"
+
 # aliases
 # git
 alias g='git'
@@ -181,7 +184,8 @@ if [ -d "$HOME/.aftman" ]; then
   . "$HOME/.aftman/env"
 fi
 
-# Created by `pipx` on 2024-09-23 19:34:34
-export PATH="$PATH:/Users/mark/.local/bin"
+if [ -f $HOME/.local/bin/linux-help ]; then
+  alias ask='function _ask() { $HOME/.local/bin/linux-help ask "$*"; }; _ask'
+fi
 
-alias ask='function _ask() { ~/.local/bin/linux-help ask "$*"; }; _ask'
+export ML_STACK_ROOT=/Users/mark/src/maplabs/ml-stack
