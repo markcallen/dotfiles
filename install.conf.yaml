@@ -25,6 +25,11 @@
     ~/.bash_profile.osx:
     ~/.bashrc:
       force: true
+    ~/.zshrc:
+      force: true
+    ~/.zshenv:
+      force: true
+    ~/.oh-my-zsh:
     ~/.config/yamllint:
       create: true
       path: config/yamllint
