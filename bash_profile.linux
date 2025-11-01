@@ -33,30 +33,21 @@ if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
   source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 
+# go
+if [ -f "/usr/local/go/bin/go" ]; then
+  export PATH=$PATH:/usr/local/go/bin
+  if [ ! -d ~/go ]; then
+    mkdir ~/go
+  fi
+  export GOPATH=~/go
+  export GOROOT=$(go env GOROOT)
+  export PATH=$PATH:$GOPATH/bin
+fi
+
 [ -h '/usr/local/bin/vim' ] && alias vim='/usr/local/bin/vim'
 
 # vim
 export GIT_EDITOR=vim
-
-# go
-if [ -f "/usr/local/go/bin/go" ]; then
-    export PATH=$PATH:/usr/local/go/bin
-    if [ ! -d ~/go ]; then
-        mkdir ~/go
-    fi
-    export GOPATH=~/go
-fi
-
-# Cargo
-if [ -d "$HOME/.cargo" ]; then
-    source "$HOME/.cargo/env"
-fi
-
-# tfenv
-export PATH=~/.tfenv/bin:$PATH
-
-# load asdf
-[[ -s $(brew --prefix asdf)/libexec/asdf.sh ]] && source $(brew --prefix asdf)/libexec/asdf.sh 
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then

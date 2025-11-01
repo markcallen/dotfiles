@@ -78,6 +78,17 @@ alias flushdns="sudo killall -HUP mDNSResponder"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
+# go
+if [ -f "${HOMEBREW_PREFIX}/bin/go" ]; then
+  export PATH=$PATH:${HOMEBREW_PREFIX}/bin/go
+  if [ ! -d ~/go ]; then
+    mkdir ~/go
+  fi
+  export GOPATH=~/go
+  export GOROOT=$(go env GOROOT)
+  export PATH=$PATH:$GOPATH/bin
+fi
+
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.bash 2>/dev/null || :

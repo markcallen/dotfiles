@@ -137,9 +137,8 @@ if [ -d $HOME/.jenv ]; then
 fi
 
 # go lang
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin
+export GOROOT=$(go env GOROOT)
+
 
 # vi mode
 set -o vi
