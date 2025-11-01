@@ -57,7 +57,7 @@ fi
 
 HOMEBREW_PREFIX="$(brew --prefix)"
 
-brew install python3 uv pipx tmux jq vim neovim yamllint fzf jenv ag
+brew install python3 uv pipx tmux jq vim neovim yamllint fzf jenv ag ripgrep
 
 if [ $os == "Darwin" ]; then
   brew install --cask iterm2
