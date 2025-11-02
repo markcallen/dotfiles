@@ -1,6 +1,8 @@
 tmux/plugins/tmux-continuum/
 tmux/plugins/tmux-resurrect/
 tmux/plugins/tmux-sensible/
+tmux/plugins/tmux/
+tmux/plugins/tmux-yank/
 tmux/plugins/vim-tmux-navigator/
 tmux/resurrect/
 vim/plugged
