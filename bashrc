@@ -187,4 +187,6 @@ if [ -f $HOME/.local/bin/linux-help ]; then
   alias ask='function _ask() { $HOME/.local/bin/linux-help ask "$*"; }; _ask'
 fi
 
+export PATH=$PATH:$HOME/.local/bin
+
 export ML_STACK_ROOT=/Users/mark/src/maplabs/ml-stack
