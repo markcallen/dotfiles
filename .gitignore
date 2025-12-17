@@ -4,6 +4,9 @@ tmux/plugins/tmux-sensible/
 tmux/plugins/tmux/
 tmux/plugins/tmux-yank/
 tmux/plugins/vim-tmux-navigator/
+tmux/plugins/tmux-cpu/
+tmux/plugins/tmux-kubectx/
+tmux/plugins/tmux-window-name/
 tmux/resurrect/
 vim/plugged
 vim/.netrwhist
