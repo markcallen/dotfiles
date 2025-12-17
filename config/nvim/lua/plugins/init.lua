@@ -82,6 +82,26 @@ return {
         function() require("opencode").ask("@this: ", { submit = true }) end,
         desc = "Ask opencode",
         mode = { "n", "x" }
+      },
+      {
+        "<leader>oo",
+        function() require("opencode").toggle() end,
+        desc = "Toggle opencode",
+        mode = { "n", "t" }
+      },
+      {
+        "<leader>oa",
+        function() return require("opencode").operator("@this ") end,
+        desc = "Add range to opencode",
+        mode = { "n", "x" },
+        expr = true
+      },
+      {
+        "<leader>ol",
+        function() return require("opencode").operator("@this ") .. "_" end,
+        desc = "Add line to opencode",
+        mode = { "n" },
+        expr = true
       }
     }
   }
