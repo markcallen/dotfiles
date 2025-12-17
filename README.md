@@ -41,3 +41,11 @@ curl https://raw.githubusercontent.com/markcallen/dotfiles/master/terminal-setup
 ### Installation
 - **dotbot**: Declarative dotfile installer with platform detection (dotbot-ifplatform)
 - **Scripts**: Automated cleanup (terraform, yarn, nvm), brew health checks 
+
+## License
+
+[Licence](./LICENSE)
+
+## Author
+
+@markcallen
