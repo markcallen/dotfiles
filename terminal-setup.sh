@@ -57,7 +57,9 @@ fi
 
 HOMEBREW_PREFIX="$(brew --prefix)"
 
-brew install python3 uv pipx tmux jq vim neovim yamllint fzf jenv ag ripgrep
+brew install python3 uv pipx tmux jq vim neovim yamllint fzf jenv ag ripgrep gitmux opencode
+
+/usr/bin/python3 -m pip install --user libtmux
 
 if [ $os == "Darwin" ]; then
   brew install --cask iterm2
@@ -118,6 +120,10 @@ if [ $os == "Linux" ]; then
    sudo mv PowerlineSymbols.otf /usr/share/fonts/
    fc-cache -vf /usr/share/fonts/
    sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
+   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraMono.zip
+   mkdir ~/.fonts
+   unzip FireMono.zip -d ~/.fonts
+   fc-cache -fv
 elif [ $os == "Darwin" ]; then
   git clone https://github.com/powerline/fonts.git --depth=1
   pushd fonts && ./install.sh && popd

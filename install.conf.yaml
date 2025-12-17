@@ -55,6 +55,7 @@
     ~/.config/nvim:
       path: config/nvim
     ~/.yarnrc:
+    ~/.gitmux.conf:
 
 - shell:
   - [vim +'PlugInstall --sync' +qall, Install PlugInstall for vim]
