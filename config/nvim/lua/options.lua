@@ -9,3 +9,5 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "number"
+
+opt.shell = "/bin/zsh"
