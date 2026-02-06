@@ -1,4 +1,13 @@
 
+# Ensure TMPDIR is safe for non-interactive shells (before pyenv)
+export TMPDIR=/tmp
+
+# Only run in interactive shells
+case $- in
+  *i*) ;;
+  *) return ;;
+esac
+
 # brew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 if type brew &>/dev/null; then
@@ -34,7 +43,7 @@ if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
 fi
 
 # go
-if [ -f "/usr/local/go/bin/go" ]; then
+if [ -f "${HOMEBREW_PREFIX}/bin/go" ] || [ -f "/usr/local/go/bin/go" ]; then
   export PATH=$PATH:/usr/local/go/bin
   if [ ! -d ~/go ]; then
     mkdir ~/go
@@ -56,4 +65,3 @@ if [ -n "$BASH_VERSION" ]; then
 	. "$HOME/.bashrc"
     fi
 fi
-

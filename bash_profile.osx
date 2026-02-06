@@ -1,5 +1,14 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Ensure TMPDIR is safe for non-interactive shells (before pyenv)
+export TMPDIR=/tmp
+
+# Only run in interactive shells
+case $- in
+  *i*) ;;
+  *) return ;;
+esac
+
 # brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 if type brew &>/dev/null; then

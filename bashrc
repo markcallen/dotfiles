@@ -144,7 +144,7 @@ export GOROOT=$(go env GOROOT)
 set -o vi
 
 # Created by `pipx` on 2024-09-23 19:34:34
-export PATH="$PATH:/Users/mark/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # aliases
 # git

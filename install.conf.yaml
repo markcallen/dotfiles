@@ -17,6 +17,8 @@
   - ~/.local
   - ~/.local/share
   - ~/.git-template
+  - ~/.oh-my-zsh-custom
+  - ~/.oh-my-zsh-custom/plugins
 
 - link:
     ~/.bash_profile:
@@ -64,3 +66,5 @@
   - [vim +'CocInstall coc-tsserver coc-json coc-html coc-css' +qall]
   - [nvim +qall, Setup nvim]
   - [nvim +'MasonInstallAll' +qall, Install LSP for nvim]
+  - [test -d ~/.oh-my-zsh-custom/plugins/zsh-autosuggestions || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh-custom/plugins/zsh-autosuggestions, Install zsh-autosuggestions]
+  - [test -d ~/.oh-my-zsh-custom/plugins/zsh-syntax-highlighting || git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh-custom/plugins/zsh-syntax-highlighting, Install zsh-syntax-highlighting]
