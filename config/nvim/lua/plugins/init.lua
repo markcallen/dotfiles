@@ -41,10 +41,14 @@ return {
   {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
-    opts = {},
+    opts = {
+      terminal = {
+        split_width_percentage = 0.50,
+      }
+    },
     config = true,
     keys = {
-      { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
+      { "<leader>a", "", desc = "ClaudeCode", mode = { "n", "v" } },
       { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
       { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
       { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
@@ -77,12 +81,12 @@ return {
     "NickvanDyke/opencode.nvim",
     dependencies = { { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } }  },
     keys = {
-      {
-        "<leader>oa",
-        function() require("opencode").ask("@this: ", { submit = true }) end,
-        desc = "Ask opencode",
-        mode = { "n", "x" }
-      },
+      --{
+      --"<leader>oa",
+      --function() require("opencode").ask("@this: ", { submit = true }) end,
+      --desc = "Ask opencode",
+      --mode = { "n", "x" }
+      --
       {
         "<leader>oo",
         function() require("opencode").toggle() end,

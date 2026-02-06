@@ -10,4 +10,4 @@ opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "number"
 
-opt.shell = "/bin/zsh"
+-- opt.shell = "/bin/zsh"
