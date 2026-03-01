@@ -41,8 +41,6 @@
       path: nvm/default-packages
     ~/.tmux:
     ~/.tmux.conf:
-    ~/.tmux.conf.linux:
-    ~/.tmux.conf.osx:
     ~/.vimrc:
     ~/.vim/autoload:
       create: true
@@ -58,6 +56,11 @@
       path: config/nvim
     ~/.yarnrc:
     ~/.gitmux.conf:
+    ~/.agents:
+    ~/.codex/AGENTS.md:
+      path: codex/AGENTS.md
+    ~/.claude/CLAUDE.md:
+      path: claude/CLAUDE.md
 
 - shell:
   - [vim +'PlugInstall --sync' +qall, Install PlugInstall for vim]
