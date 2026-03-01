@@ -89,12 +89,14 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 # go
 if [ -f "${HOMEBREW_PREFIX}/bin/go" ]; then
+  if [ -n "${GOROOT:-}" ] && [ ! -d "$GOROOT" ]; then
+    unset GOROOT
+  fi
   export PATH=$PATH:${HOMEBREW_PREFIX}/bin/go
   if [ ! -d ~/go ]; then
     mkdir ~/go
   fi
   export GOPATH=~/go
-  export GOROOT=$(go env GOROOT)
   export PATH=$PATH:$GOPATH/bin
 fi
 

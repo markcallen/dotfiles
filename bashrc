@@ -137,7 +137,10 @@ if [ -d $HOME/.jenv ]; then
 fi
 
 # go lang
-export GOROOT=$(go env GOROOT)
+# Keep GOROOT unmanaged; the Go toolchain resolves it.
+if [ -n "${GOROOT:-}" ] && [ ! -d "$GOROOT" ]; then
+  unset GOROOT
+fi
 
 
 # vi mode
