@@ -168,7 +168,7 @@ alias gchange='git log --follow -p -- '
 alias tf=terraform
 
 # docker
-alias dc=docker-compose
+alias dc="docker compose"
 
 #k8s
 alias k=kubectl
