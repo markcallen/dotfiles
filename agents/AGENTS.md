@@ -1,274 +1,96 @@
-# Execution Framework
+# AGENTS.md
 
-Operating model for designing, reviewing, and shipping software under production responsibility and CI/CD discipline.
+This file governs how agents design, review, and ship software in this project.
 
-## 0. Operating Modes and Decision Matrix
+See [EXECUTION_FRAMEWORK.md](./EXECUTION_FRAMEWORK.md) for the full execution framework covering operating modes, orchestration, task lifecycle, engineering principles, review structure, and artifact templates.
 
-### 0.1 Modes
+See [PROJECTS.md](./PROJECTS.md) for a catalog of first-party tools and libraries that agents should prefer when building new applications.
 
-- **Autonomous Execution**: implement directly, then report evidence.
-- **Approval-Required Execution**: present options and recommendation, then wait for explicit confirmation.
+## Mandatory Pre-Task Checklist
 
-### 0.2 Decision Matrix
+Before starting any task, an agent MUST:
 
-| Change Type | Default Mode | Why |
-| --- | --- | --- |
-| Small bug fix, localized code path, no external contract changes | Autonomous | Fast, low blast radius |
-| Refactor with no behavior change and low risk | Autonomous | Safe to execute with proof |
-| API contract change (request/response), schema migration, auth/permission logic | Approval-Required | High compatibility and security risk |
-| Infra/runtime/config change affecting production behavior | Approval-Required | Operational risk and rollback complexity |
-| Security-sensitive changes (secrets, access control, data exposure) | Approval-Required | High impact if wrong |
-| Cross-service or cross-team dependency changes | Approval-Required | Coordination and rollback risk |
+1. Read this file (`AGENTS.md`) and the [Execution Framework](./EXECUTION_FRAMEWORK.md).
+2. Check for Ballast project configuration in `.rulesrc.json` and apply any generated project support files and rule targets.
+3. Confirm the operating mode (Autonomous vs Approval-Required) using the decision matrix.
 
-When uncertain, default to **Approval-Required Execution**.
+These are not optional — they apply to every task, every time.
 
-## 1. Orchestration Model
+## Bug Fixes
 
-### 1.1 Plan Before You Touch Code
+1. **Write a failing test first**: before touching any implementation, create a test that reproduces the bug and confirm it fails.
+2. **Fix via subagent**: delegate the fix to a subagent, passing it the failing test as the acceptance criterion.
+3. **Proof of fix**: the subagent must demonstrate the previously failing test now passes — that is the definition of done.
 
-For non-trivial changes (3+ steps, cross-cutting concern, or architectural impact):
+The test exists before the fix. The fix is proven by the test.
 
-- Enter explicit **Plan Mode**.
-- Write a structured plan in `tasks/todo.md`.
-- Define scope, constraints, tradeoffs, risks, test strategy, and rollback strategy.
+## Test Coverage
 
-If assumptions break mid-stream:
+- Maintain **minimum 75% test coverage** at all times.
+- Never merge code that drops coverage below this threshold.
+- Run tests before creating or updating a PR and confirm coverage is met.
 
-1. Stop.
-2. Re-plan.
-3. Document direction change and why.
+## Pull Requests
 
-Verification is planned work, not cleanup work.
+### Workflow (follow this every time)
 
-### 1.2 Subagent Strategy (Separation of Cognitive Concerns)
+1. **Create a branch** — never commit directly to `main`.
+2. **Run the full test suite** — confirm all tests pass and coverage is ≥ 75%.
+3. **Push and open a PR** — assign **Copilot** as a reviewer immediately.
+4. **Check GitHub Actions** — after every push, monitor the CI run. If any check fails, investigate and fix before continuing.
+5. **Review Copilot feedback** — be ruthless: only fix comments that are genuinely necessary or correct.
+   - **Fix it**: apply the change, then reply directly on the review comment explaining what was changed and why.
+   - **Create a GitHub issue**: for valid but out-of-scope suggestions, open an issue and reply on the comment with the issue link.
+   - **Ignore it**: for noise or intentional design decisions, reply on the comment with a clear reason and close it.
+   - No comment should be silently dismissed or silently resolved.
+6. **Push fixes** — after addressing all Copilot comments, push to the same PR branch.
+7. **Repeat steps 4–6** until CI is green and all review comments are resolved.
 
-Treat subagents as isolated review pods:
+### Reviewers
 
-- One responsibility per subagent.
-- Offload research, exploratory refactors, performance profiling, and edge-case analysis.
-- Keep main context focused on architecture and decisions.
+- Always add **Copilot** as a reviewer on every PR.
 
-For complex work, parallelize investigations and consolidate findings into one structured summary.
+### Responding to Review Feedback
 
-### 1.3 Continuous Improvement Loop
+- When fixing or ignoring an item raised in a review, always reply **directly on that review comment** (not as a general PR comment).
+- If accepting the fix: briefly describe what was changed and why.
+- If ignoring the suggestion: explain the reasoning clearly (e.g., out of scope, intentional design decision, trade-off accepted).
 
-After each correction:
+No review item should be silently dismissed or silently resolved.
 
-- Update `tasks/lessons.md`.
-- Capture the repeatable failure pattern.
-- Add a preventative rule.
-- Record the trigger that should catch this earlier next time.
+### GitHub Actions
 
-At session start, review relevant lessons before implementation.
+- After every push to a PR, check the GitHub Actions run.
+- If any check fails: read the logs, identify the root cause, fix it, and push again.
+- Do not ask the user to check CI — own it.
+- Do not mark work as done while CI is red.
 
-### 1.4 Proof Before Done
+## Secrets Management
 
-Nothing is complete until evidence is attached.
+Use [env-secrets](https://github.com/markamarkmark/env-secrets) to manage secrets instead of `.env` files.
 
-Required evidence:
+- **Never commit `.env` files** or any file containing raw secrets.
+- Store all secrets via `env-secrets set <KEY> <VALUE>` — they are encrypted and stored outside the repo.
+- Load secrets into the shell with `eval $(env-secrets export)` or configure your shell profile to do this automatically.
+- Reference secrets in code and tooling as normal environment variables — the loading mechanism is external.
+- When onboarding a new secret, document its name (not value) in `env-secrets.example` or equivalent so collaborators know what keys are required.
+- CI/CD pipelines should inject secrets via their native secrets store (e.g., GitHub Actions secrets), not via `env-secrets`.
 
-- Test commands executed and result status.
-- Behavior diff summary (before vs after).
-- Logs or traces validating expected path.
-- Edge case and failure path validation.
-- Rollback path validated and documented.
+## Project Ballast
 
-Completion gate:
+Each project should have Ballast installed and configured from the repo root. The canonical project contract is `.rulesrc.json`, which records the selected Ballast targets, agents, skills, and any language/path metadata Ballast manages for that repo.
 
-> Would a staff engineer sign off based on the evidence alone?
+### What to check
 
-### 1.5 Demand Elegance (Without Over-Engineering)
+1. Look for a repo-root `.rulesrc.json`.
+2. If present, treat the project as Ballast-managed.
+3. Read any Ballast-managed support files that exist for the active tooling context, especially root `AGENTS.md` and `CLAUDE.md`.
+4. Apply rules and skills from the target-specific install paths Ballast manages, such as `.codex/rules/`, `.claude/rules/`, `.claude/skills/`, `.cursor/rules/`, or `.opencode/`.
 
-For non-trivial work, ask:
+### Conventions
 
-> Is this the cleanest reliable version of this solution?
-
-If fix quality is hacky, redesign before merge.
-
-For trivial changes:
-
-- Avoid speculative abstractions.
-- Prefer local clarity over generic frameworks.
-
-### 1.6 Autonomous Bug Resolution
-
-For bugs in Autonomous mode:
-
-- Identify root cause and show evidence (logs, traces, failing tests, or repro steps).
-- Fix the bug.
-- Add a regression test.
-- Validate fix against failure path.
-- Report evidence and blast radius.
-
-For bugs that match Approval-Required criteria, switch modes and request confirmation before implementation.
-
-## 2. Task Lifecycle Discipline
-
-1. **Plan**: Add checklist items in `tasks/todo.md` with observable outcomes.
-2. **Review**: Confirm direction and mode (Autonomous vs Approval-Required).
-3. **Execute**: Complete tasks and mark done only after verification.
-4. **Explain**: Summarize milestone outcomes and tradeoffs.
-5. **Document**: Record final outcomes in `tasks/todo.md`.
-6. **Capture Lessons**: Add durable learnings to `tasks/lessons.md`.
-
-## 3. Core Engineering Principles
-
-- **Correctness and safety first**: no change is acceptable if correctness or security is uncertain.
-- **Simplicity first**: clear control flow and predictable behavior.
-- **No lazy fixes**: root cause over patch.
-- **Minimal surface area**: touch only required code paths.
-- **Tests are mandatory**: include failure-path assertions.
-- **Explicit over clever**: optimize for maintainability.
-- **Edge-case bias**: assume misuse and validate inputs.
-- **DRY with judgment**: deduplicate when it improves clarity and reduces risk.
-
-### 3.1 Tie-Break Priority (When Principles Conflict)
-
-1. Correctness and security
-2. Operability and rollback safety
-3. Local clarity and maintainability
-4. Minimal surface area
-5. DRY improvements
-
-## 4. Structured Engineering Review Framework
-
-All reviews use the same structure and severity model.
-
-### 4.1 Severity Model
-
-- **Critical**: security, data loss, production outage, or irreversible impact.
-- **High**: major user-impacting bug or strong regression risk.
-- **Medium**: correctness, reliability, or maintainability issues with bounded impact.
-- **Low**: clarity, style, or minor optimization.
-
-Each issue must include:
-
-- Severity
-- User impact
-- Likelihood
-- Time sensitivity
-
-### 4.2 Stage 1: Architecture Review
-
-Evaluate component boundaries, dependency coupling, data ownership, scaling properties, single points of failure, and security architecture.
-
-### 4.3 Stage 2: Code Quality Review
-
-Evaluate module organization, separation of concerns, duplication, error handling, technical debt concentration, and over/under-engineering.
-
-### 4.4 Stage 3: Test Review
-
-Evaluate unit/integration/E2E coverage, assertion strength, failure-path coverage, edge cases, and flakiness risk.
-
-### 4.5 Stage 4: Performance Review
-
-Evaluate query patterns, DB access behavior, memory pressure, caching opportunities, high-complexity paths, and scaling limits.
-
-## 5. Issue Output Format (Strict)
-
-Use this exact structure:
-
-```md
-### Issue #N: <Short Description>
-
-**Severity:** <Critical|High|Medium|Low>  
-**User Impact:** <who is affected and how>  
-**Likelihood:** <High|Medium|Low>  
-**Time Sensitivity:** <Immediate|This sprint|Backlog>
-
-**Problem**  
-Concrete explanation with file/line references and example behavior.
-
-**Option A (Recommended)**  
-- Effort:
-- Risk:
-- Code Impact:
-- Maintenance:
-
-**Option B**  
-- Effort:
-- Risk:
-- Code Impact:
-- Maintenance:
-
-**Option C (Optional / Do Nothing)**  
-- Effort:
-- Risk:
-- Code Impact:
-- Maintenance:
-
-**Recommendation**  
-Explain why Option A is best based on correctness, risk, testability, and maintenance.
-
-**Decision Request**  
-Proceed with: A (recommended), B, C, or alternate direction?
-```
-
-## 6. Artifact Templates
-
-### 6.1 `tasks/todo.md` Template
-
-```md
-# Task: <title>
-
-## Context
-- Owner:
-- Date:
-- Mode: <Autonomous|Approval-Required>
-
-## Scope
-- In scope:
-- Out of scope:
-
-## Constraints
-- Constraint 1
-
-## Risks and Tradeoffs
-- Risk:
-- Tradeoff:
-
-## Execution Checklist
-- [ ] Step 1 with observable outcome
-- [ ] Step 2 with observable outcome
-
-## Test Strategy
-- Unit:
-- Integration:
-- E2E:
-- Failure-path tests:
-
-## Rollback Strategy
-- Trigger:
-- Rollback steps:
-- Validation after rollback:
-
-## Outcome
-- Result:
-- Evidence links/commands:
-```
-
-### 6.2 `tasks/lessons.md` Template
-
-```md
-# Lessons
-
-## <YYYY-MM-DD> <Short Title>
-- Incident/bug:
-- Root cause pattern:
-- Early signal missed:
-- Preventative rule:
-- Validation added (test/check/alert):
-- Next trigger to detect sooner:
-```
-
-## 7. Final Rule
-
-Before implementation:
-
-- Confirm mode from the decision matrix.
-- If in Approval-Required mode, provide options, recommendation, and wait for confirmation.
-- If in Autonomous mode, proceed directly and attach proof of completion.
-
-No silent assumptions. No surprise refactors. No hidden complexity.
-
-We ship like we own production.
+- `.rulesrc.json` is the canonical shared Ballast config file. Legacy per-language files are compatibility fallbacks, not the primary documented path.
+- Install Ballast in every project that should inherit the standard SDLC rule set and agent skills.
+- Ballast may create or update root `AGENTS.md` and `CLAUDE.md` when required by the selected targets; these files extend the global framework for that project.
+- The repo-local `.ballast/` directory is Ballast runtime/install state for local tooling, not the required project override surface. It is typically ignored rather than committed.
+- Do not put secrets, credentials, or environment-specific values in `.rulesrc.json`, Ballast-generated support files, or target rule directories.
