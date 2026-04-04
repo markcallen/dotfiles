@@ -122,7 +122,7 @@ if [ $os == "Linux" ]; then
    sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraMono.zip
    mkdir ~/.fonts
-   unzip FireMono.zip -d ~/.fonts
+   unzip FiraMono.zip -d ~/.fonts
    fc-cache -fv
 elif [ $os == "Darwin" ]; then
   git clone https://github.com/powerline/fonts.git --depth=1
