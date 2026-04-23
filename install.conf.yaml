@@ -50,8 +50,8 @@
       path: vim/config
     ~/.terraformrc:
     ~/.terminfo:
-    ~/.config/asciinema/config:
-      path: config/asciinema/config
+    ~/.config/asciinema/config.toml:
+      path: config/asciinema/config.toml
     ~/.config/nvim:
       path: config/nvim
     ~/.yarnrc:

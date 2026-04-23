@@ -28,11 +28,6 @@ if [ -d $HOME/.nvm ]; then
   [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  #
 fi
 
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
 # Powerline
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
@@ -48,9 +43,6 @@ if [ -f "${HOMEBREW_PREFIX}/bin/go" ] || [ -f "/usr/local/go/bin/go" ]; then
     unset GOROOT
   fi
   export PATH=$PATH:/usr/local/go/bin
-  if [ ! -d ~/go ]; then
-    mkdir ~/go
-  fi
   export GOPATH=~/go
   export PATH=$PATH:$GOPATH/bin
 fi

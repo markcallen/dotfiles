@@ -1,5 +1,9 @@
 export EDITOR=vim
 
+if [ -n "${GOROOT:-}" ] && [ ! -d "$GOROOT" ]; then
+  unset GOROOT
+fi
+
 osName="$(uname -s)"
 case "${osName}" in
   Linux*)  
@@ -27,7 +31,18 @@ fi
 export PATH=~/.tfenv/bin:$PATH
 
 # load asdf
-[[ -s $(brew --prefix asdf)/libexec/asdf.sh ]] && source $(brew --prefix asdf)/libexec/asdf.sh 
+if command -v brew >/dev/null 2>&1; then
+  ASDF_PREFIX="$(brew --prefix asdf 2>/dev/null)"
+  if [ -n "${ASDF_PREFIX:-}" ] && [ -s "${ASDF_PREFIX}/libexec/asdf.sh" ]; then
+    . "${ASDF_PREFIX}/libexec/asdf.sh"
+  fi
+  unset ASDF_PREFIX
+fi
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 export PATH="$PATH:/Users/mark/.local/bin"
 export PATH="$HOME/develop/flutter/bin:$PATH"

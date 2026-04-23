@@ -121,11 +121,6 @@ if [ -d $HOME/.cargo ]; then
   source "$HOME/.cargo/env"
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-#if [ -d $HOME/.rvm ]; then
-#  export PATH="$PATH:$HOME/.rvm/bin"
-#fi
-
 if [ -d $HOME/.yarn ]; then
   export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 fi
