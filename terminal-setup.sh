@@ -57,7 +57,7 @@ fi
 
 HOMEBREW_PREFIX="$(brew --prefix)"
 
-brew install python3 uv pipx tmux jq vim neovim yamllint fzf jenv ag ripgrep gitmux opencode
+brew install python3 uv pipx tmux jq vim neovim yamllint fzf jenv ag ripgrep gitmux opencode tflint tfsec
 
 /usr/bin/python3 -m pip install --user libtmux
 

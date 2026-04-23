@@ -1,5 +1,9 @@
 # Agent Guidelines for .dotfiles Repository
 
+This file contains repo-specific guidance only.
+
+Global process, workflow, PRD, review, and TDD rules belong in [agents/AGENTS.md](./agents/AGENTS.md) and its referenced framework. Do not duplicate or restate those global rules here; only document how they apply specifically to this repository.
+
 ## Overview
 Cross-platform (macOS/Linux) dotfiles repository using dotbot for installation. Primary languages: Bash, Python, Lua (Neovim), VimScript.
 
@@ -55,6 +59,12 @@ Cross-platform (macOS/Linux) dotfiles repository using dotbot for installation. 
 - **Submodules**: Don't modify; they're external dependencies (dotbot, oh-my-zsh, tpm)
 - **Config locations**: Place in `config/` directory or root (platform-specific: `.osx`, `.linux` suffix)
 - **Testing**: Add tests to `test/tests/` for new dotbot functionality; use `test_expect_success` pattern
+
+## Repo-Specific Application Notes
+- **Canonical PRD location**: This repo keeps the canonical PRD at root `PRD.md`. Keep `docs/` reserved for user-facing documentation.
+- **Shell and dotbot verification**: When behavior can be automated, add or update tests under `test/tests/` using the existing test harness.
+- **Neovim and tool config verification**: Prefer automated checks where practical; otherwise record explicit manual verification steps for the affected behavior.
+- **Cross-platform verification**: Changes affecting macOS and Linux should verify both platforms, or document the validation gap and impact clearly.
 
 ## Git Workflow
 - **Default branch**: `main`

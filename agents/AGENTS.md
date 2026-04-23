@@ -2,27 +2,72 @@
 
 This file governs how agents design, review, and ship software in this project.
 
-See [EXECUTION_FRAMEWORK.md](./EXECUTION_FRAMEWORK.md) for the full execution framework covering operating modes, orchestration, task lifecycle, engineering principles, review structure, and artifact templates.
+See [EXECUTION_FRAMEWORK.md](./EXECUTION_FRAMEWORK.md) for the full execution framework covering orchestration, task lifecycle, engineering principles, and review structure.
 
 See [PROJECTS.md](./PROJECTS.md) for a catalog of first-party tools and libraries that agents should prefer when building new applications.
 
-## Mandatory Pre-Task Checklist
+See [EXECUTION_TEMPLATES.md](./EXECUTION_TEMPLATES.md) for issue output format and artifact templates (read only when creating those artifacts).
 
-Before starting any task, an agent MUST:
+## Operating Mode
 
-1. Read this file (`AGENTS.md`) and the [Execution Framework](./EXECUTION_FRAMEWORK.md).
-2. Check for Ballast project configuration in `.rulesrc.json` and apply any generated project support files and rule targets.
-3. Confirm the operating mode (Autonomous vs Approval-Required) using the decision matrix.
+Confirm the mode before every task:
 
-These are not optional — they apply to every task, every time.
+| Change Type | Default Mode |
+| --- | --- |
+| Missing or materially changing PRD requirements, acceptance criteria, rollout, or operator workflow | Approval-Required |
+| Small bug fix, localized code path, no external contract changes | Autonomous |
+| Refactor with no behavior change and low risk | Autonomous |
+| API contract change (request/response), schema migration, auth/permission logic | Approval-Required |
+| Infra/runtime/config change affecting production behavior | Approval-Required |
+| Security-sensitive changes (secrets, access control, data exposure) | Approval-Required |
+| Cross-service or cross-team dependency changes | Approval-Required |
 
-## Bug Fixes
+When uncertain, default to **Approval-Required**.
 
-1. **Write a failing test first**: before touching any implementation, create a test that reproduces the bug and confirm it fails.
-2. **Fix via subagent**: delegate the fix to a subagent, passing it the failing test as the acceptance criterion.
-3. **Proof of fix**: the subagent must demonstrate the previously failing test now passes — that is the definition of done.
+## Pre-Task Checklist
 
-The test exists before the fix. The fix is proven by the test.
+**All tasks:**
+1. Confirm operating mode using the decision matrix above.
+2. Check for Ballast project configuration in `.rulesrc.json` and apply any generated support files and rule targets.
+
+**Non-trivial tasks** (new feature, behavioral change, PR work, architectural impact):
+3. Read [EXECUTION_FRAMEWORK.md](./EXECUTION_FRAMEWORK.md).
+4. Identify the governing repo-root `PRD.md` section, or update/create it before implementation.
+
+**When building new apps only:**
+5. Read [PROJECTS.md](./PROJECTS.md) and prefer first-party tools where applicable.
+
+## Product Requirements
+
+For any non-trivial change, agents must identify or update the governing section in the repo-root `PRD.md` before implementation starts.
+
+A PRD update is required for:
+
+- new features
+- behavioral changes
+- workflow or UX changes
+- API, integration, or config contract changes
+- infra/runtime changes with user or operator impact
+
+The PRD is the canonical product and operator contract for the repository. If behavior, scope, constraints, rollout, or acceptance criteria change during implementation, `PRD.md` must be updated in the same branch before the work is considered done.
+
+No PR may merge unless:
+
+- the PR links the governing `PRD.md` section
+- acceptance criteria are traceable to tests or explicit manual verification steps
+- `PRD.md` reflects the shipped behavior
+
+## TDD For All Behavioral Changes
+
+For any bug fix, feature, refactor with behavioral impact, or contract change:
+
+1. **Start from acceptance criteria**: define or update acceptance criteria in `PRD.md` before implementation.
+2. **Write a failing test first**: create the smallest test that proves the requirement is not yet met and confirm it fails.
+3. **Implement the minimum change**: change only what is needed to make the failing test pass.
+4. **Refactor with tests green**: improve the design only after the tests pass.
+5. **Proof of completion**: demonstrate the previously failing test passes and record the evidence.
+
+Tests exist before implementation. The implementation is proven by the tests.
 
 ## Test Coverage
 
@@ -35,16 +80,17 @@ The test exists before the fix. The fix is proven by the test.
 ### Workflow (follow this every time)
 
 1. **Create a branch** — never commit directly to `main`.
-2. **Run the full test suite** — confirm all tests pass and coverage is ≥ 75%.
-3. **Push and open a PR** — assign **Copilot** as a reviewer immediately.
-4. **Check GitHub Actions** — after every push, monitor the CI run. If any check fails, investigate and fix before continuing.
-5. **Review Copilot feedback** — be ruthless: only fix comments that are genuinely necessary or correct.
+2. **Update `PRD.md` first** — confirm the governing requirements and acceptance criteria match the intended change before implementation.
+3. **Run the full test suite** — confirm all tests pass and coverage is ≥ 75%.
+4. **Push and open a PR** — assign **Copilot** as a reviewer immediately.
+5. **Check GitHub Actions** — after every push, monitor the CI run. If any check fails, investigate and fix before continuing.
+6. **Review Copilot feedback** — be ruthless: only fix comments that are genuinely necessary or correct.
    - **Fix it**: apply the change, then reply directly on the review comment explaining what was changed and why.
    - **Create a GitHub issue**: for valid but out-of-scope suggestions, open an issue and reply on the comment with the issue link.
    - **Ignore it**: for noise or intentional design decisions, reply on the comment with a clear reason and close it.
    - No comment should be silently dismissed or silently resolved.
-6. **Push fixes** — after addressing all Copilot comments, push to the same PR branch.
-7. **Repeat steps 4–6** until CI is green and all review comments are resolved.
+7. **Push fixes** — after addressing all Copilot comments, push to the same PR branch.
+8. **Repeat steps 5–7** until CI is green, `PRD.md` matches the branch, and all review comments are resolved.
 
 ### Reviewers
 
