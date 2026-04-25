@@ -171,6 +171,9 @@ alias k=kubectl
 #dns
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
+# local env-secrets wrappers
+alias codex-local='env-secrets aws -s marka/local -- codex'
+
 fixssh() {
   eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
