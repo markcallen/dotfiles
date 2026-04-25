@@ -3,17 +3,19 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Ensure TMPDIR is safe for non-interactive shells (before pyenv)
 export TMPDIR=/tmp
 
-# Only run in interactive shells
+# Track interactive shells so PATH setup still runs for bash login shells.
 case $- in
-  *i*) ;;
-  *) return ;;
+  *i*) is_interactive=1 ;;
+  *) is_interactive=0 ;;
 esac
 
 # brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 if type brew &>/dev/null; then
   HOMEBREW_PREFIX="$(brew --prefix)"
-  [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  if [ "$is_interactive" -eq 1 ]; then
+    [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  fi
 fi
 
 # nvm
@@ -31,19 +33,6 @@ fi
 
 # Python 3
 export PATH="${HOMEBREW_PREFIX}/opt/python@3/bin:$PATH"
-
-# Powerline
-[[ -x $HOMEBREW_PREFIX/bin/powerline-daemon ]] && $HOMEBREW_PREFIX/bin/powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-[[ -r $HOMEBREW_PREFIX/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh ]] && source $HOMEBREW_PREFIX/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh 
-
-
-genpasswd() {
-  local length="${1:-20}"
-  pwgen -Bs "$length" 1 | pbcopy | pbpaste
-  echo "Has been copied to clipboard"
-}
 
 # PHP 7.4
 export PATH=$HOMEBREW_PREFIX/opt/php@7.4/sbin:$PATH
@@ -75,16 +64,10 @@ export PATH=$PATH:$HOME/.aftman/bin
 # foreman
 export PATH=$PATH:$HOME/.foreman/bin
 
-ssh-add 2>/dev/null
-
 # source .bash_profile.local
 if [ -f $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi
-
-alias flushdns="sudo killall -HUP mDNSResponder"
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # go
 if [ -f "${HOMEBREW_PREFIX}/bin/go" ]; then
@@ -100,11 +83,33 @@ fi
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.bash 2>/dev/null || :
 
-function cursor {
-  open -a "/Applications/Cursor.app" "$@"
-}
-
 # Add Visual Studio Code (code)
 export PATH=$PATH:"/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-[ -r ~/.bashrc ] && . ~/.bashrc
+if [ "$is_interactive" -eq 1 ]; then
+  # Powerline is interactive-only shell UI setup.
+  [[ -x $HOMEBREW_PREFIX/bin/powerline-daemon ]] && $HOMEBREW_PREFIX/bin/powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  [[ -r $HOMEBREW_PREFIX/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh ]] && source $HOMEBREW_PREFIX/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh
+
+  genpasswd() {
+    local length="${1:-20}"
+    pwgen -Bs "$length" 1 | pbcopy | pbpaste
+    echo "Has been copied to clipboard"
+  }
+
+  ssh-add 2>/dev/null
+
+  alias flushdns="sudo killall -HUP mDNSResponder"
+
+  test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+  function cursor {
+    open -a "/Applications/Cursor.app" "$@"
+  }
+
+  [ -r ~/.bashrc ] && . ~/.bashrc
+fi
+
+unset is_interactive
