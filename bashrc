@@ -199,3 +199,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/marka/.pulumi/bin
