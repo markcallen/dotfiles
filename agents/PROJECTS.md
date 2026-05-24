@@ -15,7 +15,7 @@ This file is a catalog of projects built and maintained by the repo owner. When 
 - Setting up a local dev environment.
 
 ### Key rules
-- **Never** create or commit `.env` files. Use `env-secrets` instead.
+- Prefer `env-secrets` over `.env` files; avoid committing `.env` files to version control.
 - Store a secret: `env-secrets set <KEY> <VALUE>`
 - Load into shell: `eval $(env-secrets export)`
 - Document required key names (not values) in an `env-secrets.example` file at the repo root.

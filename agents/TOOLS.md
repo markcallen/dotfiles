@@ -111,10 +111,16 @@ Java version manager.
 
 ## Secrets
 
-Use `env-secrets` to manage secrets — see the Secrets Management section in [AGENTS.md](./AGENTS.md).
-- Never use `.env` files
+Prefer `env-secrets` to manage secrets — see the Secrets Management section in [AGENTS.md](./AGENTS.md).
+- Avoid committing `.env` files to version control
 - Load with `eval $(env-secrets export)`
 - Alias for codex with AWS: `codex-local`
+
+## Editors
+
+### Neovim (`nvim`)
+- Primary editor with [NvChad](https://nvchad.com) config
+- Config at `~/.config/nvim`
 
 ## Dotfiles Management
 

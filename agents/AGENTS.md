@@ -79,7 +79,7 @@ TDD execution standard (failing test → minimum impl → refactor → proof): s
 
 ## Secrets Management
 
-Use `env-secrets` — never `.env` files. Full rules: see [PROJECTS.md — env-secrets](./PROJECTS.md).
+Prefer `env-secrets` over `.env` files. Full rules: see [PROJECTS.md — env-secrets](./PROJECTS.md).
 
 ## Project Ballast
 
