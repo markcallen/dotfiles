@@ -58,8 +58,10 @@
     ~/.gitmux.conf:
     ~/.agents:
     ~/.codex/AGENTS.md:
+      create: true
       path: codex/AGENTS.md
     ~/.claude/CLAUDE.md:
+      create: true
       path: claude/CLAUDE.md
 
 - shell:

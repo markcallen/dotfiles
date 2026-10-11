@@ -1,146 +1,51 @@
-# Execution Templates
+# Optional execution templates
 
-Reference templates — read this file only when actively creating one of these artifacts.
+Use only when the artifact helps communicate the task. Short work can be reported directly; options and decision requests belong only to real tradeoffs or missing authorization.
 
-## 1. Issue Output Format (Strict)
-
-Use this exact structure:
+## Finding
 
 ```md
-### Issue #N: <Short Description>
-
-**Severity:** <Critical|High|Medium|Low>
-**User Impact:** <who is affected and how>
-**Likelihood:** <High|Medium|Low>
-**Time Sensitivity:** <Immediate|This sprint|Backlog>
-
-**Problem**
-Concrete explanation with file/line references and example behavior.
-
-**Option A (Recommended)**
-- Effort:
-- Risk:
-- Code Impact:
-- Maintenance:
-
-**Option B**
-- Effort:
-- Risk:
-- Code Impact:
-- Maintenance:
-
-**Option C (Optional / Do Nothing)**
-- Effort:
-- Risk:
-- Code Impact:
-- Maintenance:
-
-**Recommendation**
-Explain why Option A is best based on correctness, risk, testability, and maintenance.
-
-**Decision Request**
-Proceed with: A (recommended), B, C, or alternate direction?
+### <severity>: <concrete finding>
+Location: <file:line or evidence URL>
+Impact: <who/what fails and when>
+Evidence: <reproduction, code path, check or log excerpt>
+Fix: <specific change>
 ```
 
-## 2. `tasks/todo.md` Template
+## Task/run plan (complex work only)
+
+Use a unique path such as `tasks/<issue-or-run-id>.md` when the repo wants a file.
 
 ```md
-# Task: <title>
-
-## Context
-- Owner:
-- Date:
-- Mode: <Autonomous|Approval-Required>
-- PRD Section:
-- Requirement IDs:
-
-## Scope
-- In scope:
-- Out of scope:
-
-## Acceptance Criteria
-- AC1:
-- AC2:
-
-## Constraints
-- Constraint 1
-
-## Risks and Tradeoffs
-- Risk:
-- Tradeoff:
-
-## Execution Checklist
-- [ ] Step 1 with observable outcome
-- [ ] Step 2 with observable outcome
-
-## Test Strategy
-- Unit:
-- Integration:
-- E2E:
-- Failure-path tests:
-- Requirement-to-test mapping:
-
-## Rollback Strategy
-- Trigger:
-- Rollback steps:
-- Validation after rollback:
-
-## Outcome
-- Result:
-- Evidence links/commands:
-- PRD updates:
+# <task and issue link>
+Repo/branch/run ID: <...>
+Scope and acceptance criteria: <...>
+Dependencies/owners: <...>
+Steps and verification: <...>
+Risks, migration and rollback: <...>
+Result and evidence: <...>
 ```
 
-## 3. `PRD.md` Section Template
+## Pull request evidence
 
 ```md
-## <Area / Feature Name>
-
-### Problem
-- ...
-
-### Users / Operators
-- ...
-
-### Goals
-- ...
-
-### Non-Goals
-- ...
-
-### Requirements
-- R1:
-
-### Acceptance Criteria
-- AC1:
-
-### Constraints
-- ...
-
-### Risks
-- ...
-
-### Rollout / Migration
-- ...
-
-### Observability / Verification
-- Test coverage:
-- Manual verification:
-
-### Change Log
-- YYYY-MM-DD:
+Issue/spec: <link and acceptance criteria>
+Behavior: <change and affected users/operators>
+Checks: <exact commands and results; CI run for latest pushed SHA>
+Review: <tool/reviewer, reviewed SHA, valid findings and disposition>
+Limits: <untested platforms, integrations, deployment or live delivery>
+Migration/rollback: <only when relevant>
+State: <implemented / locally verified / CI verified / reviewed; later states only with proof>
 ```
 
-## 4. `tasks/lessons.md` Template
+## Worker handoff
 
 ```md
-# Lessons
-
-## <YYYY-MM-DD> <Short Title>
-- Incident/bug:
-- Root cause pattern:
-- Early signal missed:
-- Preventative rule:
-- Validation added (test/check/alert):
-- Next trigger to detect sooner:
+Run/repo/branch/SHA: <...>
+Task scope and authority: <...>
+Completed work and evidence: <...>
+Unresolved work and risks: <...>
+Authorized next actions: <...>
 ```
+
+Keep a lesson only when a repeatable failure pattern and a useful early signal justify a durable rule. Review it before promoting it to global guidance.

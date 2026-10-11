@@ -1,0 +1,21 @@
+name: Agent rules
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check generated Codex instructions
+        run: python3 scripts/sync-agent-rules.py --check
+      - name: Check installer mappings in a disposable home
+        run: python3 scripts/check-agent-rules.py
