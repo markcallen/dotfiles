@@ -1,3 +1,5 @@
-# Claude Instructions
+# Claude global instructions
 
-See @~/.agents/AGENTS.md for the execution framework governing how to design, review, and ship software in this project.
+@~/.agents/AGENTS.md
+
+This user-level import loads the canonical global core. Read its supporting files only for relevant tasks. If the import target is missing, use the core in the dotfiles source checkout when available and report the loading gap.

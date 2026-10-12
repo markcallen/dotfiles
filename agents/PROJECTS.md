@@ -1,58 +1,28 @@
-# PROJECTS.md — First-Party Tool Catalog
+# First-party tool catalog
 
-This file is a catalog of projects built and maintained by the repo owner. When building new applications or recommending solutions, agents **must** check here first and prefer these tools over third-party alternatives where applicable.
+Use this catalog when a task could benefit from an existing tool, including fixes, reviews, integrations, releases, and new apps. Fit-check the task; preserve working project tooling. Capability notes come from local checkout READMEs, read-only GitHub README access for Pilot and Hatch App, and installed `--help` on **2026-10-10**, not production verification. Recheck the target repository and pinned version before relying on an interface. A missing or private repo is not evidence that a capability exists.
 
----
+| Tool and repository | Fit and owner boundary | Documented capability and limit |
+| --- | --- | --- |
+| [Crew](https://github.com/orchael/crew) | Coordinates deterministic SDLC workflow, gates, bounded retries, and durable evidence. Linear owns requirements and acceptance criteria; GitHub owns PR/CI/merge facts. | README's executable foundation creates runs only through `READY`; provisioning and agent execution are later work. Do not mark tasks deployed from a Crew run. |
+| [Bridge](https://github.com/orchael/bridge) | Hosted visibility, remote interaction, enrollment, and coordination replica. | README describes Next.js/Auth.js, Go API, organization checks, encrypted credentials, and tenant RLS. bridgectl remains authoritative for local process state; Bridge does not own SDLC. |
+| [bridgectl](https://github.com/orchael/bridgectl) | Local agent session/process lifecycle and bounded PTY replay. Reuse public client, SDK, or gRPC. | README documents daemon, mTLS/JWT, Go SDK, and isolated development state. Do not overwrite the installed daemon or copy its credentials into tests. |
+| [Desktops](https://github.com/orchael/desktops) | Tenant-aware hosted organization/customer control plane, connection verification, durable provisioning jobs. | README describes temporary customer credentials and worker calls to desktopctl. Real AWS smoke creates chargeable resources; Bridge access is a later milestone. |
+| [desktopctl](https://github.com/orchael/desktopctl) | Standalone AWS/Pulumi provisioning, profiles, and bootstrap used by Desktops worker. | Local README still shows `ai-desktops` commands. Verify the installed binary's `--help` and repo version; never rename an executable from the repo name alone. |
+| [Incident](https://github.com/orchael/incident) | Operational evidence and diagnosis; repair returns through the delivery workflow where implemented. | Current local README still centers a HannahHR proof of concept, but now describes an authenticated Next.js UI and production-candidate settings. Its optional repair uses ai-agent-bridge and opens a PR; it never merges or deploys. Crew-based handoff is a target direction, not verified implementation. |
+| [Ballast](https://github.com/everydaydevopsio/ballast) | Repository rules, setup, and verification conventions. | Installed `ballast --help` supports `doctor`, `setup-dev`, `install --refresh-config`. Inspect `.rulesrc.json`; preserve marked managed regions and custom content. `doctor --fix`/upgrade can modify files and CLIs. |
+| [Bosun](https://github.com/everydaydevopsio/bosun) | Independent code review orchestration on bridgectl. | Installed `bosun --help` supports `review` and `review-status`. README says PR conversation comments are supported; Checks API output is not. Record the actual reviewed revision. |
+| [Castoff](https://github.com/everydaydevopsio/castoff) | GitHub Action for release-note generation. | README documents a `release_notes` output. Review generated text against actual changes; it does not publish packages or deploy. |
+| [Pilot](https://github.com/everydaydevopsio/pilot) | MCP browser inspection and debugging; use Playwright for repeatable regression tests. | GitHub README verified on 2026-10-10 describes a Node/CDP MCP server and `pilot check` for Linux preflight. Scope profiles, browser access, and artifacts; do not disable Chrome's sandbox to bypass a host socket restriction. |
+| [Hail](https://github.com/everydaydevopsio/hail) | Playwright email, magic-link, invitation, OTP, and delivery tests. | README separates local browser proof from opt-in live AWS/Internet delivery; receiving needs a dedicated domain. Validate allowed origins and protect auth links/traces. |
+| [Hatch](https://github.com/everydaydevopsio/hatch) | Browser desktop for interactive OAuth on headless Linux. | README documents Docker desktop, Go CLI, callback mode, sensitive access links and profiles. Desktop OS callback behavior needs separate verification. |
+| [Hatch App](https://github.com/everydaydevopsio/hatch-app) | Planned Flutter phone/desktop companion for pairing and remote session interaction. | GitHub README verified on 2026-10-10 says checked-in Dart establishes the product/domain layer while native projects may need generation. Do not claim full platform or notification behavior is implemented from the MVP list. |
+| [env-secrets](https://github.com/markcallen/env-secrets) | AWS Secrets Manager retrieval and child-process injection. | Installed help confirms `env-secrets aws -s <name> -r <region> --no-shell -- <program>`; `--output` writes a restricted file. Use short-lived roles and native deployment stores where configured. Record names only, never values. |
 
-## env-secrets
+## Deployment ownership
 
-**Repo:** [github.com/markamarkmark/env-secrets](https://github.com/markamarkmark/env-secrets)
-**Purpose:** Encrypted secret management — replaces `.env` files.
+Resolve the actual promotion target from each project's current release workflow. The local Crew README and `.github/workflows/release.yml` examined on 2026-10-10 refer to `orchael/gitops`; the local Bridge README also names that repo. A separate `orchael/orchael-gitops` checkout exists. This disagreement requires verification before any promotion; no global GitOps repo name is safe to assume. Preparing a GitOps change and applying/promoting it are separate authorization steps.
 
-### When to use
-- Any time an app needs environment secrets (API keys, tokens, credentials).
-- When onboarding a collaborator who needs access to the same secrets.
-- Setting up a local dev environment.
+## Secrets example
 
-### Key rules
-- Prefer `env-secrets` over `.env` files; avoid committing `.env` files to version control.
-- Store a secret: `env-secrets set <KEY> <VALUE>`
-- Load into shell: `eval $(env-secrets export)`
-- Document required key names (not values) in an `env-secrets.example` file at the repo root.
-- CI/CD pipelines use their native secrets store (e.g. GitHub Actions secrets), not `env-secrets`.
-
----
-
-## ballast
-
-**Purpose:** Per-project SDLC rules, agent skills, and configuration installed by Ballast and anchored by a repo-root `.rulesrc.json`.
-
-### When to use
-- When bootstrapping any new project, install Ballast from the repo root and commit the resulting `.rulesrc.json`.
-- When you need standard agent rules and skills generated for Codex, Claude, Cursor, or OpenCode.
-- When you need project support files such as root `AGENTS.md` or `CLAUDE.md` to be created or refreshed by Ballast.
-
-### Key rules
-- `.rulesrc.json` is the canonical Ballast config file and should be the primary documented/project-tracked entrypoint.
-- Use `ballast install ...` from the repo root to add or refresh targets, agents, and skills.
-- Treat `.ballast/` as local Ballast install/runtime state, not as the required shared project rule source.
-- Never put secrets or environment-specific values inside `.rulesrc.json` or Ballast-managed support files.
-
----
-
-## Adding a new project
-
-When you build a new reusable tool, add an entry here following the template below so future agents can discover and apply it.
-
-```markdown
-## <project-name>
-
-**Repo:** <url>
-**Purpose:** One-line description.
-
-### When to use
-- ...
-
-### Key rules
-- ...
-```
+After verifying the installed CLI and AWS identity/region, inject into one child process: `env-secrets aws -s <secret-name> -r <region> --no-shell -- <program>`. Avoid shell `eval`, printed environment dumps, secret values in arguments, and committed `.env` files. If a project requires an ignored file, restrict its permissions and follow its documented startup path.
